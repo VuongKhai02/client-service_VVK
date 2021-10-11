@@ -1,0 +1,208 @@
+<div>
+  <div class="row m-2">
+    <div class="col-3">
+      <div class="row">
+        <div class="col-4">
+          <img src="/assets/dung.jpg" class="img-fluid" alt="logo">
+        </div>
+        <div class="col-8">
+          <div>
+            <button mat-icon-button color="primary" aria-label="view detail">
+              <mat-icon>assignment_ind</mat-icon>
+              Lại Trung Dũng
+            </button>
+          </div>
+          <div class="d-flex">
+            <button mat-icon-button color="primary" aria-label="view detail">
+              <mat-icon>phone</mat-icon>
+              0917311594
+            </button>
+          </div>
+          <div class="d-flex">
+            <button mat-icon-button color="primary" aria-label="view detail">
+              <mat-icon>person</mat-icon>
+              32
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="col-6">
+          <button  mat-icon-button class="mat-success-button" aria-label="Example icon button with a vertical three dot icon">
+            <mat-icon>play_arrow</mat-icon>
+            Start
+          </button>
+        </div>
+        <div class="col-6">
+          <button  mat-icon-button color="accent" aria-label="Example icon button with a vertical three dot icon">
+            <mat-icon>stop</mat-icon>
+            Stop
+          </button>
+        </div>
+        <div class="col-6">
+          <button  mat-icon-button color="warning" aria-label="Example icon button with a vertical three dot icon">
+            <mat-icon>replay</mat-icon>
+            Reset
+          </button>
+        </div>
+        <div class="col-6">
+          <button  mat-icon-button color="primary" aria-label="Example icon button with a vertical three dot icon">
+            <mat-icon>pause_circle_outline</mat-icon>
+            Pause
+          </button>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        Tỉ lệ lỗi theo công đoạn
+      </div>
+      <div class="chart-wrapper">
+        <canvas baseChart 
+        [data]="pieChartData" 
+        [labels]="pieChartLabels" 
+        [chartType]="pieChartType"
+        [options]="pieChartOptions"
+        [plugins]="pieChartPlugins"
+        [legend]="pieChartLegend">
+      </canvas>
+    </div>
+    <div class="text-center mt-4">
+      Lỗi chi tiết
+    </div>    
+    <div class="chart-wrapper">
+      <canvas baseChart 
+      [data]="pieChartData" 
+      [labels]="pieChartLabels" 
+      [chartType]="pieChartType"
+      [options]="pieChartOptions"
+      [plugins]="pieChartPlugins"
+      [legend]="pieChartLegend">
+    </canvas>
+  </div>
+    </div>
+    <div class="col-6">
+      <h2 class="text-center">Dây truyền lắp ráp sản phẩm (#46)<br />Panel 01</h2>
+      <table class="table table-bordered table-primary">
+        <tr class="table-primary">
+          <th class="table-primary">Tên sản phẩm</th>
+          <td colspan="2">Đèn LED Panel MQL 1046 2x2 CCT (Yankon-ENEREGETIC)</td>
+        </tr>
+        <tr class="table-primary">
+          <th class="table-primary">Mã sản phẩm</th>
+          <td>00042901</td>
+        </tr>
+        <tr class="table-primary">
+          <th class="table-primary" colspan="2">Lưu ý khi sản xuất</th>
+          <td rowspan="2"></td>
+        </tr>
+      </table>
+      <table class="table">
+        <thead class="table-primary">
+          <th>Số lệnh</th>
+          <th>Số lô </th>
+          <th>Đơn hàng</th>
+          <th>Kế hoạch</th>
+        </thead>
+        <tbody>
+          <td>249449</td>
+          <td>29292929AD2</td>
+          <td>Khách hàng Yankon</td>
+          <td>2000</td>
+        </tbody>
+      </table>
+      <table class="table">
+        <thead class="table-info">
+          <th>SL đầu vào</th>
+          <th>SL hoàn thành</th>
+          <th>Tỉ lệ lỗi V.Tư</th>
+          <th>Tỉ lệ lỗi</th>
+        </thead>
+        <tbody>
+          <td>1037</td>
+          <td>2243</td>
+          <td>0.0%</td>
+          <td>0.0%</td>
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="col-6">
+          <div class="chart-wrapper">
+            <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+            </canvas>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="chart-wrapper">
+            <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+            </canvas>
+          </div>
+        </div>
+        <div class="chart-wrapper">
+          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+            [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <img src="/assets/rang-dong.jpeg" class="img-fluid" alt="rang dong" />
+      <div class="text-center mt-2">9/10/2021</div>
+      <div>OEE: <span class="text-danger">402020</span></div>
+      <div>Trạng thái:</div>
+      <hr />
+      <div class="row text-center">
+        <div class="col-4">
+          <button mat-mini-fab color="success" aria-label="Example icon button with a plus one icon">
+          </button>
+        </div>
+        <div class="col-4">
+          <button mat-mini-fab color="success" aria-label="Example icon button with a plus one icon">
+          </button>
+        </div>
+        <div class="col-4">
+          <button mat-mini-fab color="success" aria-label="Example icon button with a plus one icon">
+          </button>
+        </div>
+      </div>
+      <mat-form-field class="full-width-input mt-2" appearance="fill">
+        <mat-label>Thời gian bắt đầu sản xuất</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <div class="row">
+        <mat-form-field class="col-6" appearance="fill">
+          <mat-label>Thời gian chạy máy</mat-label>
+          <input matInput>
+        </mat-form-field>
+        <mat-form-field class="col-6" appearance="fill">
+          <mat-label>Dừng máy</mat-label>
+          <input matInput>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field class="full-width-input" appearance="fill">
+        <mat-label>Năng suất bình quân</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <mat-form-field class="full-width-input" appearance="fill">
+        <mat-label>Tốc độ chuyền (bước/tổng giờ)</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <mat-form-field class="full-width-input" appearance="fill">
+        <mat-label>Độ tin cậy</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <mat-form-field class="full-width-input" appearance="fill">
+        <mat-label>Tổng lỗi</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <div>Lỗi vượt định mức</div>
+      <div class="d-flex">
+        <button mat-raised-button color="success">1</button>
+        <button mat-raised-button color="success">2</button>
+        <button mat-raised-button color="success">3</button>
+        <button mat-raised-button color="success">4</button>
+        <button mat-raised-button color="success">5</button>
+      </div>
+      <div>Click here</div>
+    </div>
+  </div>
+</div>
