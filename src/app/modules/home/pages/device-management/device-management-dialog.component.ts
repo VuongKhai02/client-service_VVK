@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { DeviceService } from '@core/http/device.service';
 import { Device, DeviceCredentialsType } from '@shared/models/device.models';
 import { AttributeService } from '@core/http/attribute.service';

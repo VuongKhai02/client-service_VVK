@@ -294,6 +294,13 @@ export class MenuService {
         type: 'link',
         path: '/device-management',
         icon: 'devices_other'
+      },
+      {
+        id: guid(),
+        name: 'Production Line',
+        type: 'link',
+        path: '/production-line',
+        icon: 'settings_applications'
       }
     );
     if (authState.edgesSupportEnabled) {

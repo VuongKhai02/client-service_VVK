@@ -37,6 +37,7 @@ import { ApiUsageModule } from '@home/pages/api-usage/api-usage.module';
 import { EdgeModule } from '@home/pages/edge/edge.module';
 import { OtaUpdateModule } from '@home/pages/ota-update/ota-update.module';
 import { DeviceManagementModule } from '@home/pages/device-management/device-management.module';
+import { ProductLinesModule } from './product-lines/product-lines.module';
 
 @NgModule({
   exports: [
@@ -65,6 +66,11 @@ import { DeviceManagementModule } from '@home/pages/device-management/device-man
       provide: MODULES_MAP,
       useValue: modulesMap
     }
+  ],
+  declarations: [
+  ],
+  imports: [
+    ProductLinesModule
   ]
 })
 export class HomePagesModule { }
