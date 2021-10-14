@@ -36,7 +36,27 @@
           <input matInput placeholder="Mã WO" formControlName="codeWo">
         </mat-form-field>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Danh sách thiết bị" formControlName="deviceList">
+          <mat-chip-list #chipList aria-label="Devices selection" formControlName="deviceList">
+            <mat-chip *ngFor="let device of devices" [selectable]="selectable"
+                     [removable]="removable" (removed)="remove(device)">
+              {{device}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Danh sách thiết bị"
+                    #deviceInput
+                    [matAutocomplete]="auto"
+                    matAutocompleteOrigin
+                    #origin="matAutocompleteOrigin"
+                    [matAutocompleteConnectedTo]="origin"
+                   [matChipInputFor]="chipList" >
+          </mat-chip-list>
+          <mat-autocomplete class="tb-autocomplete"
+          #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let device of allDevices" [value]="device.name">
+              {{device.name}}
+            </mat-option>
+          </mat-autocomplete>
+          <!-- <input matInput placeholder="Danh sách thiết bị" formControlName="deviceList"> -->
         </mat-form-field>
       </form>
     </div>

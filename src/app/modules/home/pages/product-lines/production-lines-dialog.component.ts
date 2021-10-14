@@ -1,11 +1,16 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AssetService } from '@app/core/public-api';
 import { Asset, AssetInfo, AssetSearchQuery } from '@app/shared/models/asset.models';
 import { AttributeService } from '@core/http/attribute.service';
 import { AttributeData, AttributeScope} from '@shared/models/telemetry/telemetry.models';
-
+import { DeviceService } from '@core/http/device.service';
+import { PageLink } from '@shared/models/page/page-link';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatChipInputEvent} from '@angular/material/chips';
+import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+import { Device } from '@shared/models/device.models';
 @Component({
   selector: 'tb-production-lines-dialog',
   templateUrl: './production-lines-dialog.component.html',
@@ -17,7 +22,8 @@ export class ProductionLinesDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<ProductionLinesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private assetService: AssetService,
-    private attributeService: AttributeService) { }
+    private attributeService: AttributeService,
+    private deviceService: DeviceService) { }
 
   productionLineForm = this.fb.group({
     nameProductionLine: [''],
@@ -28,8 +34,17 @@ export class ProductionLinesDialogComponent implements OnInit {
     nameProduct: [''],
     codeWo: [''],
     deviceList: []
-  })
+  });
+  pageLink: PageLink;
+  allDevices:any;
+  devices: String[] = [];
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  @ViewChild('deviceInput') deviceInput: ElementRef<HTMLInputElement>;
   ngOnInit(): void {
+    this.getAllDevice();
   }
 
   cancel() {
@@ -62,9 +77,10 @@ export class ProductionLinesDialogComponent implements OnInit {
       },
       {
         key: "deviceList",
-        value: this.productionLineForm.value.deviceList
+        value: this.devices
       }
-    ]
+    ];
+    console.log("Attributes: ", attributes);
 
     this.assetService.saveAsset(asset).subscribe(data => {
       console.log(data);
@@ -74,5 +90,40 @@ export class ProductionLinesDialogComponent implements OnInit {
       })
     })
   }
+
+  getAllDevice() {
+    this.pageLink = new PageLink(50, 0);
+    this.deviceService.getTenantDeviceInfosByDeviceProfileId(this.pageLink).subscribe(data => {
+      this.allDevices = data.data;
+    })
+  }
+
+  addDevice(event: MatChipInputEvent): void {
+    // const value = event.value;
+
+    // // Add our fruit
+    // if (value) {
+    //   this.devices.push(value);
+    // }
+
+    // Clear the input value
+    // event.chipInput!.clear();
+  }
+
+  remove(device: String): void {
+    const index = this.devices.indexOf(device);
+
+    if (index >= 0) {
+      this.devices.splice(index, 1);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    console.log(event.option.viewValue);
+    if(!this.devices.includes(event.option.viewValue)) {
+      this.devices.push(event.option.viewValue);
+    }
+  }
+
 
 }

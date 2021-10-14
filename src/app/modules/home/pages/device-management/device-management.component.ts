@@ -8,7 +8,7 @@ import { EntityRelationService } from '@core/http/entity-relation.service';
 import { DeviceManagementDialogComponent } from './device-management-dialog.component';
 import { DeviceManagementDialogDeleteComponent } from './device-management-dialog-delete.component';
 import { any } from 'prop-types';
-
+import { AttributeService } from '@app/core/public-api';
 @Component({
   selector: 'tb-device-management',
   templateUrl: './device-management.component.html',
@@ -25,7 +25,8 @@ export class DeviceManagementComponent implements AfterViewInit, OnInit {
 
   constructor(private deviceService: DeviceService,
     private entityRelationService: EntityRelationService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private attributeService: AttributeService
   ) {
     this.pageLink = new PageLink(10, 0);
     this.deviceService.listen().subscribe((m: any) => {
@@ -57,7 +58,7 @@ export class DeviceManagementComponent implements AfterViewInit, OnInit {
     });
   }
   getAttributes() {
-    this.deviceService.getAttrubutesKv().subscribe((data: any) => {
+    this.attributeService.getAttributesByEntityType('DEVICE').subscribe((data: any) => {
       this.attributes = data;
 
     })

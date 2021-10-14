@@ -49,10 +49,6 @@ export class DeviceService {
       defaultHttpOptionsFromConfig(config));
   }
 
-  public getAttrubutesKv() {
-    return this.http.get<Array<any>>(`/attributes`);
-  }
-
   public getTenantDeviceInfosByDeviceProfileId(pageLink: PageLink, deviceProfileId: string = '',
                                                config?: RequestConfig): Observable<PageData<DeviceInfo>> {
     console.log("pageLink: ", pageLink);

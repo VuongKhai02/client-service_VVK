@@ -150,4 +150,8 @@ export class AttributeService {
     }
     return this.http.get<TimeseriesData>(url, defaultHttpOptionsFromConfig(config));
   }
+
+  public getAttributesByEntityType(entityType: String) {
+    return this.http.get<Array<any>>(`/attributes?entityType=${entityType}`);
+  }
 }
