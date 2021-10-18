@@ -1,5 +1,4 @@
 import { Component, ViewChild, AfterViewInit, OnInit, Inject } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 
 import { PageLink } from '@shared/models/page/page-link';
@@ -21,7 +20,6 @@ export class DeviceManagementComponent implements AfterViewInit, OnInit {
   listMachine: any;
   totalElements: any;
   attributes: any;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private deviceService: DeviceService,
     private entityRelationService: EntityRelationService,

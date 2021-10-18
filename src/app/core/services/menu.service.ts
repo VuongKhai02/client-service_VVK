@@ -301,7 +301,14 @@ export class MenuService {
         type: 'link',
         path: '/production-line',
         icon: 'settings_applications'
-      }
+      },
+      {
+        id: guid(),
+        name: 'PLC and Machine',
+        type: 'link',
+        path: '/plc-machine',
+        icon: 'touch_app'
+      }  
     );
     if (authState.edgesSupportEnabled) {
       sections.push(

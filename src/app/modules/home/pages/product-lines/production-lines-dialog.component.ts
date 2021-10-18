@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core'
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AssetService } from '@app/core/public-api';
-import { Asset, AssetInfo, AssetSearchQuery } from '@app/shared/models/asset.models';
+import { Asset } from '@app/shared/models/asset.models';
 import { AttributeService } from '@core/http/attribute.service';
 import { AttributeData, AttributeScope} from '@shared/models/telemetry/telemetry.models';
 import { DeviceService } from '@core/http/device.service';
