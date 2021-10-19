@@ -25,9 +25,12 @@
     <div mat-dialog-actions fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="end">
       <button mat-button
               (click)="cancel()">{{ 'action.cancel' | translate }}</button>
-      <button mat-raised-button
+      <button *ngIf="!data.element" mat-raised-button
               color="accent"
               (click)="add()">{{ 'action.add' | translate }}</button>
+      <button *ngIf="data.element" mat-raised-button
+              color="accent"
+              (click)="update()">{{ 'action.update' | translate }}</button>
     </div>
   </div>
   

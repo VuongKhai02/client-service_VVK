@@ -11,9 +11,9 @@ import { DeviceService } from '@app/core/public-api';
 })
 export class PlcMachineDialogComponent implements OnInit {
   assetForm =  this.fb.group({
-    name: [''],
+    name: [this.data.element.name],
     type: [this.data.name],
-    label: ['']
+    label: [this.data.element.label]
   })
   constructor(public dialogRef: MatDialogRef<PlcMachineDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -40,6 +40,10 @@ export class PlcMachineDialogComponent implements OnInit {
       this.deviceService.filter('Add Asset');
       this.dialogRef.close();
     })
+  }
+
+  update() {
+    
   }
 
 }
