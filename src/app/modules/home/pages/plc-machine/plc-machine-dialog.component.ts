@@ -29,11 +29,13 @@ export class PlcMachineDialogComponent implements OnInit {
   }
 
   add() {
+    console.log("Data: ", this.data);
     const asset: Asset = {
       name: this.assetForm.value.name,
       type: this.data.name,
       label: this.assetForm.value.label
     }
+    console.log("Asset: ", asset);
     this.assetService.saveAsset(asset).subscribe(data => {
       this.deviceService.filter('Add Asset');
       this.dialogRef.close();

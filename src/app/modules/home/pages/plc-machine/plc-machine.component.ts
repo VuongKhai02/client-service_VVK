@@ -43,9 +43,9 @@ export class PlcMachineComponent implements OnInit {
     const dialogRef = this.dialog.open(PlcMachineDialogComponent, {
       panelClass: ['tb-dialog', 'tb-fullscreen-dialog'],
       width: '600px',
-      height: '450px',
+      height: '300px',
       data: { element: element == "-1" ? any : element,
-              name: this.asset.value.name }
+              name: this.asset.value.assetType }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -59,7 +59,7 @@ export class PlcMachineComponent implements OnInit {
       width: '600px',
       height: '450px',
       data: { element: element == "-1" ? any : element,
-              name: this.asset.value.name }
+              name: this.asset.value.assetType }
     })
   }
 
