@@ -16,4 +16,12 @@ export class PlcMachineDialogDeleteComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  cancel(): void {
+    this.dialogRef.close();
+  }
+
+  delete(): void {
+
+  }
+
 }
