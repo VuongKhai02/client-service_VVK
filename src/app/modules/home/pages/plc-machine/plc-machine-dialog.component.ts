@@ -10,7 +10,7 @@ import { DeviceService } from '@app/core/public-api';
   styleUrls: ['./plc-machine-dialog.component.scss']
 })
 export class PlcMachineDialogComponent implements OnInit {
-  assetForm =  this.fb.group({
+  assetForm = this.fb.group({
     name: [this.data.element.name],
     type: [this.data.name],
     label: [this.data.element.label]
@@ -43,7 +43,20 @@ export class PlcMachineDialogComponent implements OnInit {
   }
 
   update() {
-    
+    // const asset: Asset = {
+    //   name: this.assetForm.value.name,
+    //   type: this.data.name,
+    //   label: this.assetForm.value.label
+    // }
+    console.log(this.data);
+    const asset: Asset = this.data.element;
+    asset.label = this.assetForm.value.label;
+    asset.name = this.assetForm.value.name;
+    this.assetService.saveAsset(asset).subscribe(data => {
+      console.log(data);
+      this.deviceService.filter('Update Asset');
+      this.dialogRef.close();
+    })
   }
 
 }

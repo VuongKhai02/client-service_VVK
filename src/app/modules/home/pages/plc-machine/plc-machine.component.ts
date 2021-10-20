@@ -44,10 +44,11 @@ export class PlcMachineComponent implements OnInit {
       panelClass: ['tb-dialog', 'tb-fullscreen-dialog'],
       width: '600px',
       height: '300px',
-      data: { element: element == "-1" ? any : element,
-              name: this.asset.value.assetType }
+      data: { element: element,
+              name: this.asset.value.assetType,
+              type: element == -1 ? "add": "edit" }
     });
-
+    console.log(dialogRef);
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
@@ -57,8 +58,8 @@ export class PlcMachineComponent implements OnInit {
     const dialogRef = this.dialog.open(PlcMachineDialogDeleteComponent, {
       panelClass: ['tb-dialog', 'tb-fullscreen-dialog'],
       width: '600px',
-      height: '450px',
-      data: { element: element == "-1" ? any : element,
+      height: '230px',
+      data: { element: element,
               name: this.asset.value.assetType }
     })
   }
