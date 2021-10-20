@@ -12,28 +12,28 @@
     </button>
 </mat-toolbar>
 <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource">
+    <table *ngIf="dataSource" mat-table [dataSource]="dataSource">
   
       <!-- Position Column -->
-      <ng-container matColumnDef="position">
+      <ng-container matColumnDef="name">
         <th class="mat-body-2" mat-header-cell *matHeaderCellDef>Tên thiết bị</th>
         <td mat-cell *matCellDef="let element"> {{element.element.name}} </td>
       </ng-container>
   
       <!-- Name Column -->
-      <ng-container matColumnDef="name">
+      <ng-container matColumnDef="label">
         <th mat-header-cell *matHeaderCellDef> Mã thiết bị</th>
         <td mat-cell *matCellDef="let element"> {{element.element.label}} </td>
       </ng-container>
   
       <!-- Weight Column -->
-      <ng-container matColumnDef="weight">
+      <ng-container matColumnDef="type">
         <th mat-header-cell *matHeaderCellDef>Entity type</th>
         <td mat-cell *matCellDef="let element"> {{element.element.type}} </td>
       </ng-container>
   
       <!-- Symbol Column -->
-      <ng-container matColumnDef="symbol">
+      <ng-container matColumnDef="serial">
         <th mat-header-cell *matHeaderCellDef> Serial</th>
         <td mat-cell *matCellDef="let element"> {{element.serial}} </td>
       </ng-container>
@@ -43,10 +43,17 @@
         <td mat-cell *matCellDef="let element"> {{element.element.createdTime | date:'dd/MM/yyyy'}} </td>
       </ng-container>
   
-      <ng-container matColumnDef="list">
+      <ng-container matColumnDef="listMachine">
         <th mat-header-cell *matHeaderCellDef> Danh sách máy</th>
         <td mat-cell *matCellDef="let element">
             <button [routerLink]="['/device-dashboard']" *ngFor="let machine of element.machineList" class="badge bg-info text-dark m-1">{{machine}}</button>        
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="listPlc">
+        <th mat-header-cell *matHeaderCellDef> Danh sách Plc</th>
+        <td mat-cell *matCellDef="let element">
+            <button [routerLink]="['/device-dashboard']" *ngFor="let plc of element.plcList" class="badge bg-warning text-dark m-1">{{plc}}</button>        
         </td>
       </ng-container>
 
@@ -62,7 +69,7 @@
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="primary" aria-label="view detail" (click)="openDeleteDialog(element.name)">
+          <button mat-icon-button color="primary" aria-label="view detail" (click)="openDeleteDialog(element)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>

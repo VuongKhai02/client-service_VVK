@@ -1,6 +1,6 @@
 <div>
     <mat-toolbar color="accent">
-      <h2 translate>{{data.name}}</h2>
+      <h2 translate>Are you sure delete this device '{{data.element.element.name}}'?</h2>
       <span fxFlex></span>
       <button mat-icon-button
                 (click)="cancel()"
@@ -9,7 +9,7 @@
       </button>
     </mat-toolbar>
     <div mat-dialog-content>
-
+      <div>Be careful, after the confirmation the asset and all related data will become unrecoverable.</div>
     </div>
     <!-- <mat-progress-bar color="warn" mode="indeterminate">
     </mat-progress-bar> -->

@@ -14,10 +14,10 @@ import { AttributeService } from '@app/core/public-api';
   styleUrls: ['./device-management.component.scss']
 })
 export class DeviceManagementComponent implements AfterViewInit, OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'time', 'list', 'edit', 'delete'];
+  displayedColumns: string[] = ['name', 'label', 'type', 'serial', 'listMachine', 'listPlc', 'time', 'edit', 'delete'];
   dataSource: any;
   pageLink: PageLink;
-  listMachine: any;
+  listMachine: any; 
   totalElements: any;
   attributes: any;
 
@@ -64,21 +64,25 @@ export class DeviceManagementComponent implements AfterViewInit, OnInit {
 
   addAttrbutesInDataSource() {
     this.dataSource.forEach((element, index) => {
-      const attributes = this.attributes.filter(attr => attr.entity_id == element.id.id);
+      const attributes = this.attributes.filter(attr => attr.entityId == element.id.id);
       this.dataSource[index] = {
         element,
         serial: "",
-        machineList: []
+        machineList: [],
+        plcList: []
       }
       console.log("attrbutes filter: ", attributes);
       attributes.forEach(attr => {
-        console.log("attr: ", attr.attribute_key);
-        if (attr.attribute_key == "machineList") {
-          this.dataSource[index].machineList = JSON.parse(attr.json_v);
+        console.log("attr: ", attr.attributeKey);
+        if (attr.attributeKey == "machineList") {
+          this.dataSource[index].machineList = JSON.parse(attr.jsonV);
         }
-        if (attr.attribute_key == "serial") {
+        if (attr.attributeKey == "serial") {
           console.log("AAA")
-          this.dataSource[index].serial = attr.str_v;
+          this.dataSource[index].serial = attr.strV;
+        }
+        if(attr.attributeKey == "plcList") {
+          this.dataSource[index].plcList = JSON.parse(attr.jsonV);
         }
       });
     });
@@ -90,8 +94,9 @@ export class DeviceManagementComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(DeviceManagementDialogComponent, {
       panelClass: ['tb-dialog', 'tb-fullscreen-dialog'],
       width: '600px',
-      height: '450px',
-      data: { element: element == "-1" ? any : element }
+      height: '550px',
+      data: { element: element,
+              type: element == -1 ? "add": "edit" }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -99,12 +104,12 @@ export class DeviceManagementComponent implements AfterViewInit, OnInit {
     });
   }
 
-  openDeleteDialog(name): void {
+  openDeleteDialog(element): void {
     console.log("Open dialog")
     const dialogRef = this.dialog.open(DeviceManagementDialogDeleteComponent, {
       panelClass: ['tb-dialog', 'tb-fullscreen-dialog'],
       width: '600px',
-      data: { name: name }
+      data: { element: element}
     });
 
     dialogRef.afterClosed().subscribe(result => {
