@@ -23,21 +23,23 @@ export class ProductionLinesDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private assetService: AssetService,
     private attributeService: AttributeService,
-    private deviceService: DeviceService) { }
+    private deviceService: DeviceService) { 
+      this.devices = this.data.element.deviceList ? this.data.element.deviceList: [];
+    }
 
   productionLineForm = this.fb.group({
-    nameProductionLine: [''],
-    codePo: [''],
-    branch: [''],
-    productionLineMachine: [''],
-    codeProduct: [''],
-    nameProduct: [''],
-    codeWo: [''],
-    deviceList: []
+    nameProductionLine: [this.data.type == "edit" ? this.data.element.element.name: ''],
+    codePo: [this.data.type == "edit" ? this.data.element.codePo: ''],
+    branch: [this.data.type == "edit" ? this.data.element.element.branch: ''],
+    productionLineMachine: [this.data.type == "edit" ? this.data.element.productionLineMachine: ''],
+    codeProduct: [this.data.type == "edit" ? this.data.element.codeProduct: ''],
+    nameProduct: [this.data.type == "edit" ? this.data.element.nameProduct: ''],
+    codeWo: [this.data.type == "edit" ? this.data.element.codeWo: ''],
+    deviceList: [this.data.type == "edit" ? this.data.element.deviceList: '']
   });
   pageLink: PageLink;
   allDevices:any;
-  devices: String[] = [];
+  devices: Device[] = [];
   selectable = true;
   removable = true;
   addOnBlur = true;
@@ -54,7 +56,7 @@ export class ProductionLinesDialogComponent implements OnInit {
   add() {
     const asset: Asset = {
       name: this.productionLineForm.value.nameProductionLine,
-      type: this.productionLineForm.value.codePo,
+      type: 'production lines',
       label: this.productionLineForm.value.branch
     }
 
@@ -62,6 +64,10 @@ export class ProductionLinesDialogComponent implements OnInit {
       {
         key: "productionLineMachine",
         value: this.productionLineForm.value.productionLineMachine
+      },
+      {
+        key: "codePo",
+        value: this.productionLineForm.value.codePo
       },
       {
         key: "codeProduct",
@@ -86,6 +92,7 @@ export class ProductionLinesDialogComponent implements OnInit {
       console.log(data);
       this.attributeService.saveEntityAttributes(data.id, AttributeScope.SERVER_SCOPE, attributes).subscribe(attr => {
         console.log(attr);
+        this.deviceService.filter('Add production lines');
         this.dialogRef.close();
       })
     })
@@ -110,7 +117,48 @@ export class ProductionLinesDialogComponent implements OnInit {
     // event.chipInput!.clear();
   }
 
-  remove(device: String): void {
+  update() {
+    const asset: Asset = this.data.element.element;
+    asset.name = this.productionLineForm.value.nameProductionLine;
+    asset.type = 'production lines';
+    asset.label = this.productionLineForm.value.branch;
+    this.assetService.saveAsset(asset).subscribe((data:any) => {
+      const attributes: Array<AttributeData> = [
+        {
+          key: "productionLineMachine",
+          value: this.productionLineForm.value.productionLineMachine
+        },
+        {
+          key: "codePo",
+          value: this.productionLineForm.value.codePo
+        },
+        {
+          key: "codeProduct",
+          value: this.productionLineForm.value.codeProduct
+        },
+        {
+          key: "nameProduct",
+          value: this.productionLineForm.value.nameProduct
+        },
+        {
+          key: "codeWo",
+          value: this.productionLineForm.value.codeWo
+        },
+        {
+          key: "deviceList",
+          value: this.devices
+        }
+      ]
+      this.attributeService.saveEntityAttributes(data.id, AttributeScope.SERVER_SCOPE, attributes).subscribe((data) => {
+        console.log("attribute: ", data);
+        this.deviceService.filter('Update device');
+        this.dialogRef.close();
+      })
+    })
+
+  }
+
+  remove(device: Device): void {
     const index = this.devices.indexOf(device);
 
     if (index >= 0) {
@@ -119,9 +167,13 @@ export class ProductionLinesDialogComponent implements OnInit {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
+    console.log("Device load: ", this.devices);
     console.log(event.option.viewValue);
-    if(!this.devices.includes(event.option.viewValue)) {
-      this.devices.push(event.option.viewValue);
+    // const deviceAdd = this.allDevices.find(d => d.name == event.option.viewValue);
+    // console.log(deviceAdd);
+    if(!this.devices.find(d => d.name == event.option.viewValue)) {
+      const deviceAdd = this.allDevices.find(d => d.name == event.option.viewValue);
+      this.devices.push(deviceAdd);
     }
   }
 

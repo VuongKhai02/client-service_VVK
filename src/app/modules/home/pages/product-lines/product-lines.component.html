@@ -11,3 +11,87 @@
         <mat-icon>search</mat-icon>
     </button>
 </mat-toolbar>
+<div class="mat-elevation-z8">
+    <table *ngIf="dataSource" mat-table [dataSource]="dataSource">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="nameProductionLine">
+            <th class="mat-body-2" mat-header-cell *matHeaderCellDef>Tên dây chuyền</th>
+            <td mat-cell *matCellDef="let element"> {{element.element.name}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="codePo">
+            <th mat-header-cell *matHeaderCellDef>Mã Po</th>
+            <td mat-cell *matCellDef="let element"> {{element.codePo}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="branch">
+            <th mat-header-cell *matHeaderCellDef>Đơn vị sản xuất</th>
+            <td mat-cell *matCellDef="let element"> {{element.element.branch}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="productionLineMachine">
+            <th mat-header-cell *matHeaderCellDef>Dây chuyền máy</th>  
+            <td mat-cell *matCellDef="let element"> {{element.productionLineMachine}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="time">
+            <th mat-header-cell *matHeaderCellDef> Created time</th>
+            <td mat-cell *matCellDef="let element"> {{element.element.createdTime | date:'dd/MM/yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="deviceList">
+            <th mat-header-cell *matHeaderCellDef> Danh sách thiết bị</th>
+            <td mat-cell *matCellDef="let element" style="cursor: pointer;" (click)="goToDashBoard(element)">
+                <button [routerLink]="['/device-dashboard']" *ngFor="let device of element.deviceList"
+                    class="badge bg-info text-dark m-1">{{device.name}}</button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="codeProduct">
+            <th mat-header-cell *matHeaderCellDef> Mã hàng hóa</th>
+            <td mat-cell *matCellDef="let element"> {{element.codeProduct}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nameProduct">
+            <th mat-header-cell *matHeaderCellDef>Tên hàng hóa</th>
+            <td mat-cell *matCellDef="let element"> {{element.nameProduct}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="codeWo">
+            <th mat-header-cell *matHeaderCellDef>Mã WO</th>
+            <td mat-cell *matCellDef="let element">{{element.codeWo}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary" aria-label="edit" (click)="openDialog(element)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary" aria-label="view detail" (click)="openDeleteDialog(element)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" [pageIndex]="pageLink.page" [pageSize]="pageLink.pageSize"
+        [length]="totalElements" (page)="handlePage($event)" showFirstLastButtons
+        aria-label="Select page of periodic elements">
+    </mat-paginator>
+    <div>
+    </div>
+</div>

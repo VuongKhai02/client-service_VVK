@@ -1,6 +1,6 @@
 <div>
     <mat-toolbar color="accent">
-      <h2 translate>Add production line</h2>
+      <h2 translate>{{data.type == "add" ? "Add production line": data.element.element.name}}</h2>
       <span fxFlex></span>
       <button mat-icon-button
                 (click)="cancel()"
@@ -39,7 +39,7 @@
           <mat-chip-list #chipList aria-label="Devices selection" formControlName="deviceList">
             <mat-chip *ngFor="let device of devices" [selectable]="selectable"
                      [removable]="removable" (removed)="remove(device)">
-              {{device}}
+              {{device.name}}
               <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
             </mat-chip>
             <input placeholder="Danh sách thiết bị"
@@ -52,7 +52,7 @@
           </mat-chip-list>
           <mat-autocomplete class="tb-autocomplete"
           #auto="matAutocomplete" (optionSelected)="selected($event)">
-            <mat-option *ngFor="let device of allDevices" [value]="device.name">
+            <mat-option *ngFor="let device of allDevices" [value]="device">
               {{device.name}}
             </mat-option>
           </mat-autocomplete>
@@ -64,9 +64,8 @@
     <div mat-dialog-actions fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="end">
       <button mat-button
               (click)="cancel()">{{ 'action.cancel' | translate }}</button>
-      <button mat-raised-button
-              color="accent"
-              (click)="add()">{{ 'action.add' | translate }}</button>
+              <button mat-raised-button *ngIf="data.type=='add'" color="accent" (click)="add()">{{ 'action.add' | translate }}</button>
+              <button mat-raised-button *ngIf="data.type=='edit'" color="accent" (click)="update()">{{ 'action.update' | translate }}</button>
     </div>
   </div>
   

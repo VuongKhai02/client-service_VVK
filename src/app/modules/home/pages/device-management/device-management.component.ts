@@ -63,6 +63,7 @@ export class DeviceManagementComponent implements AfterViewInit, OnInit {
   }
 
   addAttrbutesInDataSource() {
+    console.log("Add: ", this.dataSource);
     this.dataSource.forEach((element, index) => {
       const attributes = this.attributes.filter(attr => attr.entityId == element.id.id);
       this.dataSource[index] = {

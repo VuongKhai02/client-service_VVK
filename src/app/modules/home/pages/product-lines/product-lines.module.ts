@@ -6,11 +6,13 @@ import { ChartsModule } from 'ng2-charts';
 import { ProductLinesRoutingModule } from './product-lines-routing.module';
 import { ProductLinesComponent } from './product-lines.component';
 import { ProductionLinesDialogComponent } from './production-lines-dialog.component';
+import { ProductionLinesDialogDeleteComponent } from './production-lines-dialog-delete.component';
 
 @NgModule({
   declarations: [
     ProductLinesComponent,
-    ProductionLinesDialogComponent
+    ProductionLinesDialogComponent,
+    ProductionLinesDialogDeleteComponent
   ],
   imports: [
     CommonModule,

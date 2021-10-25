@@ -743,6 +743,23 @@ export interface DeviceCredentialMQTTBasic {
   password: string;
 }
 
+export interface DeviceDashboardMQTTData {
+  "name": string,
+	"phone": string,
+	"age": number,
+  "nameDevice": string,
+	"codeDevice": "0202002",
+	"oee": string,
+	"timeStart": number,
+	"timeRunning": number,
+	"timeStop": number,
+	"averageProductivity": string,
+	"speed": string,
+	"reliability": string,
+	"totalError": string
+
+}
+
 export interface DeviceSearchQuery extends EntitySearchQuery {
   deviceTypes: Array<string>;
 }

@@ -9,19 +9,19 @@
           <div>
             <button mat-icon-button color="primary" aria-label="view detail">
               <mat-icon>assignment_ind</mat-icon>
-              Lại Trung Dũng
+              {{mainData.name}}
             </button>
           </div>
           <div class="d-flex">
             <button mat-icon-button color="primary" aria-label="view detail">
               <mat-icon>phone</mat-icon>
-              0917311594
+              {{mainData.phone}}
             </button>
           </div>
           <div class="d-flex">
             <button mat-icon-button color="primary" aria-label="view detail">
               <mat-icon>person</mat-icon>
-              32
+              {{mainData.age}}
             </button>
           </div>
         </div>
@@ -57,7 +57,7 @@
       </div>
       <div class="chart-wrapper">
         <canvas baseChart 
-        [data]="pieChartData" 
+        [data]="errorOfPartPieData" 
         [labels]="pieChartLabels" 
         [chartType]="pieChartType"
         [options]="pieChartOptions"
@@ -70,7 +70,7 @@
     </div>    
     <div class="chart-wrapper">
       <canvas baseChart 
-      [data]="pieChartData" 
+      [data]="errorOfDetailPieData" 
       [labels]="pieChartLabels" 
       [chartType]="pieChartType"
       [options]="pieChartOptions"
@@ -84,11 +84,11 @@
       <table class="table table-bordered table-primary">
         <tr class="table-primary">
           <th class="table-primary">Tên sản phẩm</th>
-          <td colspan="2">Đèn LED Panel MQL 1046 2x2 CCT (Yankon-ENEREGETIC)</td>
+          <td colspan="2">{{mainData.nameDevice}}</td>
         </tr>
         <tr class="table-primary">
           <th class="table-primary">Mã sản phẩm</th>
-          <td>00042901</td>
+          <td>{{mainData.codeDevice}}</td>
         </tr>
         <tr class="table-primary">
           <th class="table-primary" colspan="2">Lưu ý khi sản xuất</th>
@@ -103,10 +103,13 @@
           <th>Kế hoạch</th>
         </thead>
         <tbody>
-          <td>249449</td>
-          <td>29292929AD2</td>
-          <td>Khách hàng Yankon</td>
-          <td>2000</td>
+          <tr *ngFor="let command of commands">
+            <td>{{command.command}}</td>
+            <td>{{command.codeCommand}}</td>
+            <td>{{command.order}}</td>
+            <td>{{command.schedule}}</td>
+          </tr>
+         
         </tbody>
       </table>
       <table class="table">
@@ -117,27 +120,29 @@
           <th>Tỉ lệ lỗi</th>
         </thead>
         <tbody>
-          <td>1037</td>
-          <td>2243</td>
-          <td>0.0%</td>
-          <td>0.0%</td>
+          <tr *ngFor="let quaErr of quantityErrors">
+            <td>{{quaErr.inputQuantity}}</td>
+            <td>{{quaErr.completeQuantity}}</td>
+            <td>{{quaErr.errorProduct}}%</td>
+            <td>{{quaErr.error}}%</td>
+          </tr>
         </tbody>
       </table>
       <div class="row">
         <div class="col-6">
           <div class="chart-wrapper">
-            <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+            <canvas baseChart [data]="scheduleWithTimeDoughnutChart" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
             </canvas>
           </div>
         </div>
         <div class="col-6">
           <div class="chart-wrapper">
-            <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+            <canvas baseChart [data]="scheduleWithTimeDoughnutChart" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
             </canvas>
           </div>
         </div>
         <div class="chart-wrapper">
-          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+          <canvas baseChart [datasets]="errorOfHourBarChart" [labels]="barChartLabels" [options]="barChartOptions"
             [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
           </canvas>
         </div>
@@ -145,55 +150,51 @@
     </div>
     <div class="col-3">
       <img src="/assets/rang-dong.jpeg" class="img-fluid" alt="rang dong" />
-      <div class="text-center mt-2">9/10/2021</div>
-      <div>OEE: <span class="text-danger">402020</span></div>
+      <div class="text-center mt-2">{{mainData.time | date:'dd/MM/yyyy'}}</div>
+      <div>OEE: <span class="text-dan ger">{{mainData.oee}}</span></div>
       <div>Trạng thái:</div>
-      <hr />
+      <hr />  
       <div class="row text-center">
-        <div class="col-4">
-          <button mat-mini-fab color="success" aria-label="Example icon button with a plus one icon">
+        <div class="col-4" *ngFor="let sta of status">
+          <button *ngIf="sta" color="success" mat-mini-fab aria-label="Example icon button with a plus one icon">
           </button>
-        </div>
-        <div class="col-4">
-          <button mat-mini-fab color="success" aria-label="Example icon button with a plus one icon">
-          </button>
-        </div>
-        <div class="col-4">
-          <button mat-mini-fab color="success" aria-label="Example icon button with a plus one icon">
+          <button *ngIf="!sta" color="accent" mat-mini-fab aria-label="Example icon button with a plus one icon">
           </button>
         </div>
       </div>
+    <form [formGroup]="dashboardForm">
       <mat-form-field class="full-width-input mt-2" appearance="fill">
         <mat-label>Thời gian bắt đầu sản xuất</mat-label>
-        <input matInput>
+        <input matInput formControlName="timeStart">
       </mat-form-field>
       <div class="row">
         <mat-form-field class="col-6" appearance="fill">
           <mat-label>Thời gian chạy máy</mat-label>
-          <input matInput>
+          <input matInput formControlName="timeRunning"t>
         </mat-form-field>
         <mat-form-field class="col-6" appearance="fill">
           <mat-label>Dừng máy</mat-label>
-          <input matInput>
+          <input matInput formControlName="timeStop">
         </mat-form-field>
       </div>
 
       <mat-form-field class="full-width-input" appearance="fill">
         <mat-label>Năng suất bình quân</mat-label>
-        <input matInput>
+        <input matInput formControlName="averageProductivity">
       </mat-form-field>
       <mat-form-field class="full-width-input" appearance="fill">
         <mat-label>Tốc độ chuyền (bước/tổng giờ)</mat-label>
-        <input matInput>
+        <input matInput formControlName="speed">
       </mat-form-field>
       <mat-form-field class="full-width-input" appearance="fill">
         <mat-label>Độ tin cậy</mat-label>
-        <input matInput>
+        <input matInput formControlName="reliability">
       </mat-form-field>
       <mat-form-field class="full-width-input" appearance="fill">
         <mat-label>Tổng lỗi</mat-label>
-        <input matInput>
+        <input matInput formControlName="totalError">
       </mat-form-field>
+    </form>
       <div>Lỗi vượt định mức</div>
       <div class="d-flex">
         <button mat-raised-button color="success">1</button>

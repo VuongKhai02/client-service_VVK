@@ -9,7 +9,7 @@ const routes: Routes = [
     component: DeviceManagementComponent,
   },
   {
-    path: 'device-dashboard',
+    path: 'device-dashboard/:id',
     component: DeviceDashboardComponent
   }
 ];

@@ -190,6 +190,7 @@ export class AttributeTableComponent extends PageComponent implements AfterViewI
     const sortOrder: SortOrder = { property: 'key', direction: Direction.ASC };
     this.pageLink = new PageLink(10, 0, null, sortOrder);
     this.dataSource = new AttributeDatasource(this.attributeService, this.telemetryWsService, this.zone, this.translate);
+    console.log("Data Source: ", this.dataSource);
   }
 
   ngOnInit() {

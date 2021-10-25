@@ -64,6 +64,7 @@ export class AttributeDatasource implements DataSource<AttributeData> {
 
   loadAttributes(entityId: EntityId, attributesScope: TelemetryType,
                  pageLink: PageLink, reload: boolean = false): Observable<PageData<AttributeData>> {
+    console.log(entityId);
     if (reload) {
       this.allAttributes = null;
       if (this.telemetrySubscriber) {
@@ -77,6 +78,7 @@ export class AttributeDatasource implements DataSource<AttributeData> {
       catchError(() => of(emptyPageData<AttributeData>())),
     ).subscribe(
       (pageData) => {
+        console.log("Page Data: ", pageData);
         this.attributesSubject.next(pageData.data);
         this.pageDataSubject.next(pageData);
         result.next(pageData);
@@ -94,6 +96,8 @@ export class AttributeDatasource implements DataSource<AttributeData> {
 
   getAllAttributes(entityId: EntityId, attributesScope: TelemetryType): Observable<Array<AttributeData>> {
     if (!this.allAttributes) {
+      console.log("EntityId: ", entityId);
+      console.log("AttributesScope: ", attributesScope);
       let attributesObservable: Observable<Array<AttributeData>>;
       if (isClientSideTelemetryType.get(attributesScope)) {
         this.telemetrySubscriber = TelemetrySubscriber.createEntityAttributesSubscription(
@@ -108,6 +112,7 @@ export class AttributeDatasource implements DataSource<AttributeData> {
         refCount()
       );
     }
+    console.log("All attributes: ", this.allAttributes);
     return this.allAttributes;
   }
 
