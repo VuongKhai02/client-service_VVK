@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// const forwardUrl = "http://42.114.93.108:80";
-// const wsForwardUrl = "ws://42.114.93.108:80";
+const forwardUrl = "http://192.168.68.21:8080/";
+const wsForwardUrl = "ws://192.168.68.21:8080/";
 // const forwardUrl = "http://scadabroker.canhbaoews.com.vn/";
 // const wsForwardUrl = "ws://scadabroker.canhbaoews.com.vn/";
-const forwardUrl = "http://localhost:8080/";
-const wsForwardUrl = "ws://localhost:8080/";
+// const forwardUrl = "http://localhost:8080/";
+// const wsForwardUrl = "ws://localhost:8080/";
 const customizeUrl = "http://localhost:9090/";
 const vpnUrl = "http://10.212.134.104:8080/"
 const ruleNodeUiforwardUrl = forwardUrl;

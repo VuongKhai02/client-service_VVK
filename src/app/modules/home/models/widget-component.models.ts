@@ -354,6 +354,7 @@ export class WidgetContext {
   }
 
   pageLink(pageSize: number, page: number = 0, textSearch: string = null, sortOrder: SortOrder = null): PageLink {
+    console.log("Text search: ", textSearch);
     return new PageLink(pageSize, page, textSearch, sortOrder);
   }
 }

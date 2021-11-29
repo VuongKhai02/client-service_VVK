@@ -35,8 +35,8 @@ displayedColumns: string[] = ['nameProductionLine', 'codePo', 'branch', 'product
   totalElements: any;
   attributes: any;
   ngOnInit(): void {
-    this.getAttributes();
-    this.getAllAssets();
+    // this.getAttributes();
+    // this.getAllAssets();
   }
 
   openDialog(element): void {
@@ -66,12 +66,12 @@ displayedColumns: string[] = ['nameProductionLine', 'codePo', 'branch', 'product
   getAttributes() {
     this.attributeService.getAttributesByEntityType('ASSET').subscribe((data: any) => {
       this.attributes = data;
-      console.log("attribute assets: ", this.attributes);
     })
   }
 
   addAttrbutesInDataSource() {
     console.log("Add: ", this.dataSource);
+    console.log("attribute assets: ", this.attributes);
     this.dataSource.forEach((element, index) => {
       const attributes = this.attributes.filter(attr => attr.entityId == element.id.id);
       this.dataSource[index] = {
