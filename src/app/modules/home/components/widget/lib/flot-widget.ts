@@ -354,6 +354,7 @@ export class TbFlot {
   }
 
   private init($element: JQuery<any>, subscription: IWidgetSubscription) {
+    console.log("$element: ", $element);
     this.$element = $element;
     this.subscription = subscription;
     this.comparisonEnabled = this.subscription ? this.subscription.comparisonEnabled : this.settings.comparisonEnabled;
@@ -1001,6 +1002,7 @@ export class TbFlot {
     const decimals = isDefinedAndNotNull(seriesHoverInfo.decimals) ? seriesHoverInfo.decimals : this.trackDecimals;
     const divElement = this.seriesInfoDiv(seriesHoverInfo.label, seriesHoverInfo.color,
       seriesHoverInfo.value, units, decimals, seriesHoverInfo.index === seriesIndex, null, seriesHoverInfo.tooltipValueFormatFunction);
+    console.log("DivElement: ", divElement);
     return divElement.prop('outerHTML');
   }
 

@@ -209,7 +209,6 @@ export class EntitiesTableWidgetSearchDateComponent extends PageComponent implem
     this.updateDatasources();
     this.ctx.updateWidgetParams();
     this.range.valueChanges.subscribe(selectedValue => {
-      console.log("Form value changed: ", selectedValue.start);
       if(selectedValue.start && selectedValue.end)
         this.onDataUpdated(selectedValue.start, selectedValue.end);
     })
@@ -224,7 +223,6 @@ export class EntitiesTableWidgetSearchDateComponent extends PageComponent implem
           if (this.displayPagination) {
             this.paginator.pageIndex = 0;
           }
-          console.log("this.searchInputField.nativeElement: ", this.searchInputField.nativeElement);
           this.updateData();
         })
       )
@@ -656,10 +654,8 @@ export class EntitiesTableWidgetSearchDateComponent extends PageComponent implem
   private defaultContent(key: EntityColumn, contentInfo: CellContentInfo, value: any): any {
     if (isDefined(value)) {
       const entityField = entityFields[key.name];
-      // console.log("Entity Field: ", entityFields);
       if (entityField) {
         if (entityField.time) {
-          console.log(this.datePipe);
           return this.datePipe.transform(value, 'yyyy-MM-dd HH:mm:ss');
         }
       }
@@ -759,7 +755,6 @@ class EntityDatasource implements DataSource<EntityData> {
     const datasourcesPageData = this.subscription.datasourcePages[0];
     const dataPageData = this.subscription.dataPages[0];
     let entities = new Array<EntityData>();
-    console.log("datasourcesPageData: ", datasourcesPageData);
     datasourcesPageData.data.forEach((datasource, index) => {
       entities.push(this.datasourceToEntityData(datasource, dataPageData.data[index]));
     });
@@ -768,8 +763,6 @@ class EntityDatasource implements DataSource<EntityData> {
       entities = entities.sort((a, b) => sortItems(a, b, this.appliedSortOrderLabel, asc));
     }
     if(start && end) {
-      console.log("Start time: ", start);
-      console.log("End time: ", end);
       entities = entities.filter(entity => {
         if(entity['Created time'] <= end && entity['Created time'] >=start)
           return entity;
@@ -781,7 +774,6 @@ class EntityDatasource implements DataSource<EntityData> {
       totalElements: datasourcesPageData.totalElements,
       hasNext: datasourcesPageData.hasNext
     };
-    console.log("entitiesPageData: ", entitiesPageData)
     this.ngZone.run(() => {
       this.entitiesSubject.next(entities);
       this.pageDataSubject.next(entitiesPageData);
@@ -824,7 +816,6 @@ class EntityDatasource implements DataSource<EntityData> {
   }
 
   total(): Observable<number> {
-    console.log("this.pageDataSubject: ", this.pageDataSubject);
     return this.pageDataSubject.pipe(
       map((pageData) => pageData.totalElements)
     );
