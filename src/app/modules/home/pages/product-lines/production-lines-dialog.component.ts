@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AssetService } from '@app/core/public-api';
 import { Asset } from '@app/shared/models/asset.models';
@@ -11,15 +11,13 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import { Device } from '@shared/models/device.models';
-import productionLine from '@app/_files/production-lines.json';
-import { FormControl } from '@material-ui/core';
 @Component({
   selector: 'tb-production-lines-dialog',
   templateUrl: './production-lines-dialog.component.html',
   styleUrls: ['./production-lines-dialog.component.scss']
 })
 export class ProductionLinesDialogComponent implements OnInit {
-  public productionLine:{key:string, name:string, type: string}[] = productionLine;
+
   constructor(private fb: FormBuilder,
     public dialogRef: MatDialogRef<ProductionLinesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -28,21 +26,17 @@ export class ProductionLinesDialogComponent implements OnInit {
     private deviceService: DeviceService) { 
       this.devices = this.data.element.deviceList ? this.data.element.deviceList: [];
     }
+
   productionLineForm = this.fb.group({
-    name: [this.data.type == "edit" ? this.data.element.element.name: '', Validators.required],
-    type: [this.data.type == "edit" ? this.data.eletment.element.type: '', Validators.required],
-    label: ['', Validators.required],
-    attributes: this.fb.group({})
-    // attributes: this.fb.array([])
-    // codePo: [this.data.type == "edit" ? this.data.element.codePo: ''],
-    // branch: [this.data.type == "edit" ? this.data.element.element.branch: ''],
-    // productionLineMachine: [this.data.type == "edit" ? this.data.element.productionLineMachine: ''],
-    // codeProduct: [this.data.type == "edit" ? this.data.element.codeProduct: ''],
-    // nameProduct: [this.data.type == "edit" ? this.data.element.nameProduct: ''],
-    // codeWo: [this.data.type == "edit" ? this.data.element.codeWo: ''],
-    // deviceList: [this.data.type == "edit" ? this.data.element.deviceList: '']
+    nameProductionLine: [this.data.type == "edit" ? this.data.element.element.name: ''],
+    codePo: [this.data.type == "edit" ? this.data.element.codePo: ''],
+    branch: [this.data.type == "edit" ? this.data.element.element.branch: ''],
+    productionLineMachine: [this.data.type == "edit" ? this.data.element.productionLineMachine: ''],
+    codeProduct: [this.data.type == "edit" ? this.data.element.codeProduct: ''],
+    nameProduct: [this.data.type == "edit" ? this.data.element.nameProduct: ''],
+    codeWo: [this.data.type == "edit" ? this.data.element.codeWo: ''],
+    deviceList: [this.data.type == "edit" ? this.data.element.deviceList: '']
   });
-  items = this.productionLineForm.get('attributes') as FormGroup;
   pageLink: PageLink;
   allDevices:any;
   devices: Device[] = [];
@@ -52,12 +46,6 @@ export class ProductionLinesDialogComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   @ViewChild('deviceInput') deviceInput: ElementRef<HTMLInputElement>;
   ngOnInit(): void {
-    console.log("File production line: ", this.productionLine)
-    this.productionLine.forEach(p => {
-      this.items.addControl(p.key, this.fb.control('', [Validators.required]));
-    });
-    this.productionLineForm.setControl('attributes', this.items);
-    console.log(this.productionLineForm)
     this.getAllDevice();
   }
 
@@ -67,24 +55,41 @@ export class ProductionLinesDialogComponent implements OnInit {
 
   add() {
     const asset: Asset = {
-      name: this.productionLineForm.value.name,
-      type: this.productionLineForm.value.name,
-      label: this.productionLineForm.value.label
+      name: this.productionLineForm.value.nameProductionLine,
+      type: 'production lines',
+      label: this.productionLineForm.value.branch
     }
 
-    let attributes = [];
-    console.log("AAAA: ", this.items);
-    productionLine.forEach(p => {
-      attributes.push({
-        key: p.key,
-        value: this.items.get(p.key).value
-      })
-    });
-
-    console.log("Attributes ------------------->", attributes);
+    const attributes: Array<AttributeData> = [
+      {
+        key: "productionLineMachine",
+        value: this.productionLineForm.value.productionLineMachine
+      },
+      {
+        key: "codePo",
+        value: this.productionLineForm.value.codePo
+      },
+      {
+        key: "codeProduct",
+        value: this.productionLineForm.value.codeProduct
+      },
+      {
+        key: "nameProduct",
+        value: this.productionLineForm.value.nameProduct
+      },
+      {
+        key: "codeWo",
+        value: this.productionLineForm.value.codeWo
+      },
+      {
+        key: "deviceList",
+        value: this.devices
+      }
+    ];
+    console.log("Attributes: ", attributes);
 
     this.assetService.saveAsset(asset).subscribe(data => {
-      console.log("Save assets: ", data);
+      console.log(data);
       this.attributeService.saveEntityAttributes(data.id, AttributeScope.SERVER_SCOPE, attributes).subscribe(attr => {
         console.log(attr);
         this.deviceService.filter('Add production lines');
@@ -118,13 +123,32 @@ export class ProductionLinesDialogComponent implements OnInit {
     asset.type = 'production lines';
     asset.label = this.productionLineForm.value.branch;
     this.assetService.saveAsset(asset).subscribe((data:any) => {
-      let attributes:  Array<AttributeData>;
-      productionLine.forEach(p => {
-        attributes.push({
-          key: p.key,
-          value: this.productionLineForm.value.attributes
-        })
-      });
+      const attributes: Array<AttributeData> = [
+        {
+          key: "productionLineMachine",
+          value: this.productionLineForm.value.productionLineMachine
+        },
+        {
+          key: "codePo",
+          value: this.productionLineForm.value.codePo
+        },
+        {
+          key: "codeProduct",
+          value: this.productionLineForm.value.codeProduct
+        },
+        {
+          key: "nameProduct",
+          value: this.productionLineForm.value.nameProduct
+        },
+        {
+          key: "codeWo",
+          value: this.productionLineForm.value.codeWo
+        },
+        {
+          key: "deviceList",
+          value: this.devices
+        }
+      ]
       this.attributeService.saveEntityAttributes(data.id, AttributeScope.SERVER_SCOPE, attributes).subscribe((data) => {
         console.log("attribute: ", data);
         this.deviceService.filter('Update device');

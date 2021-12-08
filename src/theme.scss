@@ -19,7 +19,7 @@
 
 @include mat-core();
 
-$tb-primary-color: #305680;
+$tb-primary-color: #0a0a0a;
 $tb-secondary-color: #527dad;
 $tb-hue3-color: #a7c1de;
 
@@ -57,9 +57,14 @@ $tb-mat-indigo: (
     A700: $light-primary-text,
   )
 );
+//linhnv10
+
+//
+
 
 $tb-primary: mat-palette($tb-mat-indigo);
-$tb-accent: mat-palette($mat-deep-orange);
+$tb-accent: mat-palette($mat-blue-grey);
+//$tb-accent: map_get($mat-grey, A700);
 
 $background: (background: map_get($mat-grey, 200));
 

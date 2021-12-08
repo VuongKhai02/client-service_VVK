@@ -14,21 +14,16 @@
     <div mat-dialog-content>
       <form class="example-form" [formGroup]="productionLineForm">
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Tên dây chuyền" formControlName="name">
+          <input matInput placeholder="Tên dây chuyền" formControlName="nameProductionLine">
+        </mat-form-field>
+      
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Mã PO" formControlName="codePo">
         </mat-form-field>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Loại" formControlName="type">
+          <input matInput placeholder="Đơn vị sản xuất" formControlName="branch">
         </mat-form-field>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Label" formControlName="label">
-        </mat-form-field>
-        <div formGroupName="attributes" class="row">
-          <mat-form-field class="example-full-width col-6" *ngFor="let production of productionLine">
-            <input matInput [placeholder]="production.name" [formControlName]="production.key">
-          </mat-form-field>
-        </div>
-        
-        <!-- <mat-form-field class="example-full-width">
           <input matInput placeholder="Dây chuyền máy" formControlName="productionLineMachine">
         </mat-form-field>
         <mat-form-field class="example-full-width">
@@ -39,8 +34,8 @@
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <input matInput placeholder="Mã WO" formControlName="codeWo">
-        </mat-form-field> -->
-        <!-- <mat-form-field class="example-full-width">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
           <mat-chip-list #chipList aria-label="Devices selection" formControlName="deviceList">
             <mat-chip *ngFor="let device of devices" [selectable]="selectable"
                      [removable]="removable" (removed)="remove(device)">
@@ -61,7 +56,8 @@
               {{device.name}}
             </mat-option>
           </mat-autocomplete>
-        </mat-form-field> -->
+          <!-- <input matInput placeholder="Danh sách thiết bị" formControlName="deviceList"> -->
+        </mat-form-field>
       </form>
     </div>
   

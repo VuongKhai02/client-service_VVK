@@ -1,0 +1,43 @@
+<h6>Tên sản phẩm: ${productName}</h6>
+<h6>Mã sản phẩm: ${productCode:0}</h6>
+<h6>Lưu ý sản xuất${note}</h6>
+<table class="table table-bordered table-dark">
+  <thead class="thead-dark">
+    <tr>
+      <!--th scope="col">#</th-->
+      <th scope="col">Lệnh sản xuất</th>
+      <th scope="col">Số lô</th>
+      <th scope="col">Số lượng kế hoạch</th>
+	  <th scope="col">Đơn hàng</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <!--th scope="row">1</th-->
+      <td>${WO:0}</td>
+      <td>${lotNumber}</td>
+      <td>${Number_Of_Planning:0}</td>
+	  <td>${order}</td>
+    </tr>
+  </tbody>
+</table>
+<table class="table table-bordered table-dark">
+  <thead class="thead-dark">
+    <tr>
+      <!--th scope="col">#</th-->
+      <th scope="col">Sản lượng đầu vào</th>
+      <th scope="col">Sản lượng hoàn thành</th>
+      <th scope="col">Tỉ lệ lỗi</th>
+	  <th scope="col">Độ tin cậy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <!--th scope="row">1</th-->
+      <td>${Number_Of_Input:0}</td>
+      <td>${Number_Of_Output:0}</td>
+      <td>${errRate:2} %</td>
+	  <td>${cpk}</td>
+    </tr>
+  </tbody>
+</table>

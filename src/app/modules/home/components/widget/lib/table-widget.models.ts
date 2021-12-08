@@ -132,7 +132,6 @@ export function findColumnByEntityKey(key: EntityKey, columns: EntityColumn[]): 
 }
 
 export function findEntityKeyByColumnDef(def: string, columns: EntityColumn[]): EntityKey {
-  console.log("String search: ", def);
   if (def) {
     const column = findColumnByDef(def, columns);
     return column ? column.entityKey : null;
@@ -171,7 +170,6 @@ export function findColumnProperty(searchProperty: string, searchValue: string, 
   if (column) {
     res = column[columnProperty];
   }
-  console.log("RES: ", searchValue);
   return res;
 }
 

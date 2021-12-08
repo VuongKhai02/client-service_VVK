@@ -41,7 +41,6 @@ import { EdgesOverviewWidgetComponent } from '@home/components/widget/lib/edges-
 import { JsonInputWidgetComponent } from '@home/components/widget/lib/json-input-widget.component';
 import { QrCodeWidgetComponent } from '@home/components/widget/lib/qrcode-widget.component';
 import { MarkdownWidgetComponent } from '@home/components/widget/lib/markdown-widget.component';
-import { EntitiesTableWidgetSearchDateComponent } from './lib/entities-table-widget-search-date.component';
 
 @NgModule({
   declarations:
@@ -63,8 +62,7 @@ import { EntitiesTableWidgetSearchDateComponent } from './lib/entities-table-wid
       NavigationCardsWidgetComponent,
       NavigationCardWidgetComponent,
       QrCodeWidgetComponent,
-      MarkdownWidgetComponent,
-      EntitiesTableWidgetSearchDateComponent
+      MarkdownWidgetComponent
     ],
   imports: [
     CommonModule,
@@ -88,8 +86,7 @@ import { EntitiesTableWidgetSearchDateComponent } from './lib/entities-table-wid
     NavigationCardsWidgetComponent,
     NavigationCardWidgetComponent,
     QrCodeWidgetComponent,
-    MarkdownWidgetComponent,
-    EntitiesTableWidgetSearchDateComponent
+    MarkdownWidgetComponent
   ],
   providers: [
     CustomDialogService,

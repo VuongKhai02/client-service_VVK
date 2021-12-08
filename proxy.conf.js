@@ -20,7 +20,7 @@ const wsForwardUrl = "ws://192.168.68.21:8080/";
 // const forwardUrl = "http://localhost:8080/";
 // const wsForwardUrl = "ws://localhost:8080/";
 const customizeUrl = "http://localhost:9090/";
-const vpnUrl = "http://10.212.134.104:8080/"
+const vpnUrl = "http://http://192.168.68.21:8080/"
 const ruleNodeUiforwardUrl = forwardUrl;
 
 const PROXY_CONFIG = {
