@@ -70,7 +70,7 @@ const moment = moment_;
 const flotPieSettingsSchemaValue = flotPieSettingsSchema;
 const flotPieDatakeySettingsSchemaValue = flotPieDatakeySettingsSchema;
 
-export class TbFlot {
+export class TemPeratureFlot {
 
   private readonly utils: UtilsService;
 
@@ -172,7 +172,7 @@ export class TbFlot {
       title: null,
       subtitile: null,
       shadowSize: isDefined(this.settings.shadowSize) ? this.settings.shadowSize : 4,
-      HtmlText: true,
+      HtmlText: false,
       grid: {
         hoverable: true,
         mouseActiveRadius: 10,
@@ -349,7 +349,8 @@ export class TbFlot {
     }
 
     if (this.ctx.defaultSubscription) {
-      this.init(this.ctx.$container, this.ctx.defaultSubscription);
+      console.log("This.ctx.$container: ", this.ctx.$container);
+      this.init($('#demo', this.ctx.$container), this.ctx.defaultSubscription);
     }
   }
 
@@ -595,6 +596,7 @@ export class TbFlot {
 
           let axisVisibilityChanged = false;
           if (this.yaxis) {
+            console.log("This.subscription.data: ", this.subscription.data);
             for (let i = 0; i < this.subscription.data.length; i++) {
               const series = this.subscription.data[i] as TbFlotSeries;
               const yaxisIndex = series.yaxisIndex;
@@ -746,6 +748,7 @@ export class TbFlot {
   }
 
   private createPlot() {
+    // console.log("This.$element: ", this.$element);
     if (this.createPlotTimeoutHandle) {
       clearTimeout(this.createPlotTimeoutHandle);
       this.createPlotTimeoutHandle = null;
@@ -762,7 +765,7 @@ export class TbFlot {
       } else {
         this.createPlotTimeoutHandle = setTimeout(this.createPlot.bind(this), 30);
       }
-    }
+    }    
   }
 
   private updateData() {
@@ -828,7 +831,7 @@ export class TbFlot {
     const thresholdsSourcesSubscriptionOptions: WidgetSubscriptionOptions = {
       datasources,
       useDashboardTimewindow: false,
-      type: widgetType.latest,
+      type: widgetType.latest, 
       callbacks: {
         onDataUpdated: (subscription) => this.thresholdsSourcesDataUpdated(subscription.data)
       }
@@ -1005,7 +1008,6 @@ export class TbFlot {
     const decimals = isDefinedAndNotNull(seriesHoverInfo.decimals) ? seriesHoverInfo.decimals : this.trackDecimals;
     const divElement = this.seriesInfoDiv(seriesHoverInfo.label, seriesHoverInfo.color,
       seriesHoverInfo.value, units, decimals, seriesHoverInfo.index === seriesIndex, null, seriesHoverInfo.tooltipValueFormatFunction);
-    console.log("DivElement: ", divElement);
     return divElement.prop('outerHTML');
   }
 
@@ -1203,7 +1205,6 @@ export class TbFlot {
               return b.value - a.value;
             });
           }
-          console.log("Hover info: ", hoverInfo);
           tooltipHtml = this.formatChartTooltip(hoverInfo, item ? item.seriesIndex : -1);
         }
       }
@@ -1283,7 +1284,6 @@ export class TbFlot {
   }
 
   private getHoverInfo(seriesList: TbFlotPlotDataSeries[], pos: JQueryPlotPoint): TbFlotHoverInfo[] {
-    console.log("seriesList: ", seriesList);
     let i: number;
     let series: TbFlotPlotDataSeries;
     let hoverIndex: number;
@@ -1458,7 +1458,6 @@ export class TbFlot {
           }
           this.pieData[i].data[0][1] = value;
         }
-        console.log("this.pieData: ", this.pieData);
         this.plot.setData(this.pieData);
         this.plot.draw();
         this.pieAnimationLastTime = time;
