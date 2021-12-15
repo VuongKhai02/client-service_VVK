@@ -21,7 +21,14 @@
   .tb-login-content {
     margin-top: 36px;
     margin-bottom: 76px;
-    background-color: #eee;    
+    background-color: rgb(255, 255, 255);
+    //background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(20).jpg");rangdong_background.jpg
+    background-image: url('rangdong_background.jpg');
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;    
     .tb-login-form {
       @media #{$mat-gt-xs} {
         width: 550px !important;
@@ -87,6 +94,16 @@
         justify-content: center;
         align-items: center;
       }
+    }
+    .bg {
+      /* The image used */
+      background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(20).jpg");
+      /* Full height */
+      height: 100%;
+      /* Center and scale the image nicely */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
     }
   }
 

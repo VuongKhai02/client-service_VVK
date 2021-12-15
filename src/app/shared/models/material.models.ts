@@ -329,13 +329,29 @@ export const materialColorPalette: {[palette: string]: {[spectrum: string]: stri
     A200: '#b0bec5',
     A400: '#78909c',
     A700: '#455a64'
+  },
+  'black': {
+    50: '#000000',
+    100: '#000000',
+    200: '#000000',
+    300: '#000000',
+    400: '#000000',
+    500: '#000000',
+    600: '#000000',
+    700: '#000000',
+    800: '#000000',
+    900: '#000000',
+    A100: '#000000',
+    A200: '#000000',
+    A400: '#000000',
+    A700: '#000000'
   }
 };
 
 export const materialColors = new Array<MaterialColorItem>();
 
 const colorPalettes = ['blue', 'green', 'red', 'amber', 'blue-grey', 'purple', 'light-green',
-  'indigo', 'pink', 'yellow', 'light-blue', 'orange', 'deep-purple', 'lime', 'teal', 'brown', 'cyan', 'deep-orange', 'grey'];
+  'indigo', 'pink', 'yellow', 'light-blue', 'orange', 'deep-purple', 'lime', 'teal', 'brown', 'cyan', 'deep-orange', 'grey','black'];
 const colorSpectrum = ['500', 'A700', '600', '700', '800', '900', '300', '400', 'A200', 'A400'];
 
 for (const key of Object.keys(materialColorPalette)) {
