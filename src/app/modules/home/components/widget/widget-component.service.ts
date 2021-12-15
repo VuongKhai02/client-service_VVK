@@ -142,6 +142,11 @@ export class WidgetComponentService {
           (window as any).TbFlot = mod.TbFlot;
         }))
       );
+      widgetModulesTasks.push(from(import('@home/components/widget/lib/temperature-flot')).pipe(
+        tap((mod) => {
+          (window as any).TemPeratureFlot = mod.TemPeratureFlot;
+        }))
+      );
       widgetModulesTasks.push(from(import('@home/components/widget/lib/analogue-compass')).pipe(
         tap((mod) => {
           (window as any).TbAnalogueCompass = mod.TbAnalogueCompass;
