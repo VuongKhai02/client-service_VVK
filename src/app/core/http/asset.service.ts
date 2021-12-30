@@ -32,8 +32,8 @@ export class AssetService {
     private http: HttpClient
   ) { }
 
-  public getTenantAssetInfosError(type: string = '', config?: RequestConfig): Observable<PageData<AssetInfo>> {
-    let pageLink = new PageLink(50, 0);
+  public getTenantAssetInfosError(type: string = '',pageSize: number, pageIndex: number, config?: RequestConfig): Observable<PageData<AssetInfo>> {
+    let pageLink = new PageLink(pageSize, pageIndex);
     return this.http.get<PageData<AssetInfo>>(`/api/tenant/assetInfos${pageLink.toQuery()}&type=${type}`,
       defaultHttpOptionsFromConfig(config));
   }

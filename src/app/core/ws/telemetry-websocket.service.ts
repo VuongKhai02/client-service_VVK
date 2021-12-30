@@ -295,7 +295,6 @@ export class TelemetryWebsocketService implements TelemetryService {
   }
 
   private onMessage(message: WebsocketDataMsg) {
-    console.log("On message: ", message);
     if (message.errorCode) {
       this.showWsError(message.errorCode, message.errorMsg);
     } else {
