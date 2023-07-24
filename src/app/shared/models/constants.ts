@@ -15,6 +15,7 @@
 ///
 
 import { InjectionToken } from '@angular/core';
+import { environment } from '@env/environment';
 
 export const Constants = {
   serverErrorCode: {
@@ -245,3 +246,11 @@ export const customTranslationsPrefix = 'custom.';
 export const i18nPrefix = 'i18n';
 
 export const MODULES_MAP = new InjectionToken<{[key: string]: any}>('ModulesMap');
+
+const integration_service = environment.integration_service;
+export const ilink = {
+  product: integration_service + `/api/product`,
+  groupProduct: integration_service + `/api/group-product`,
+  stage: integration_service + `/api/stage`,
+  error: integration_service + `/api/error`
+}

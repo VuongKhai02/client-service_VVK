@@ -20,6 +20,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { EntityRelation, EntityRelationInfo, EntityRelationsQuery } from '@shared/models/relation.models';
 import { EntityId } from '@app/shared/models/id/entity-id';
+import { environment as env } from '@env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -49,7 +50,7 @@ export class EntityRelationService {
 
   public getRelation(fromId: EntityId, relationType: string, toId: EntityId,
                      config?: RequestConfig): Observable<EntityRelation> {
-    return this.http.get<EntityRelation>(`/api/relation?fromId=${fromId.id}&fromType=${fromId.entityType}` +
+    return this.http.get<EntityRelation>(env.integration_service + `/wrapperApis/relation?fromId=${fromId.id}&fromType=${fromId.entityType}` +
       `&relationType=${relationType}&toId=${toId.id}&toType=${toId.entityType}`,
       defaultHttpOptionsFromConfig(config));
   }
@@ -57,42 +58,42 @@ export class EntityRelationService {
   public findByFrom(fromId: EntityId,
                     config?: RequestConfig): Observable<Array<EntityRelation>> {
     return this.http.get<Array<EntityRelation>>(
-      `/api/relations?fromId=${fromId.id}&fromType=${fromId.entityType}`,
+      env.integration_service + `/wrapperApis/relations?fromId=${fromId.id}&fromType=${fromId.entityType}`,
       defaultHttpOptionsFromConfig(config));
   }
 
   public findInfoByFrom(fromId: EntityId,
                         config?: RequestConfig): Observable<Array<EntityRelationInfo>> {
     return this.http.get<Array<EntityRelationInfo>>(
-      `/api/relations/info?fromId=${fromId.id}&fromType=${fromId.entityType}`,
+      env.integration_service + `/wrapperApis/relations/info?fromId=${fromId.id}&fromType=${fromId.entityType}`,
       defaultHttpOptionsFromConfig(config));
   }
 
   public findByFromAndType(fromId: EntityId, relationType: string,
                            config?: RequestConfig): Observable<Array<EntityRelation>> {
     return this.http.get<Array<EntityRelation>>(
-      `/api/relations?fromId=${fromId.id}&fromType=${fromId.entityType}&relationType=${relationType}`,
+      env.integration_service + `/wrapperApis/relations?fromId=${fromId.id}&fromType=${fromId.entityType}&relationType=${relationType}`,
       defaultHttpOptionsFromConfig(config));
   }
 
   public findByTo(toId: EntityId,
                   config?: RequestConfig): Observable<Array<EntityRelation>> {
     return this.http.get<Array<EntityRelation>>(
-      `/api/relations?toId=${toId.id}&toType=${toId.entityType}`,
+      env.integration_service + `/wrapperApis/relations?toId=${toId.id}&toType=${toId.entityType}`,
       defaultHttpOptionsFromConfig(config));
   }
 
   public findInfoByTo(toId: EntityId,
                       config?: RequestConfig): Observable<Array<EntityRelationInfo>> {
     return this.http.get<Array<EntityRelationInfo>>(
-      `/api/relations/info?toId=${toId.id}&toType=${toId.entityType}`,
+      env.integration_service + `/wrapperApis/relations/info?toId=${toId.id}&toType=${toId.entityType}`,
       defaultHttpOptionsFromConfig(config));
   }
 
   public findByToAndType(toId: EntityId, relationType: string,
                          config?: RequestConfig): Observable<Array<EntityRelation>> {
     return this.http.get<Array<EntityRelation>>(
-      `/api/relations?toId=${toId.id}&toType=${toId.entityType}&relationType=${relationType}`,
+      env.integration_service + `/wrapperApis/relations?toId=${toId.id}&toType=${toId.entityType}&relationType=${relationType}`,
       defaultHttpOptionsFromConfig(config));
   }
 

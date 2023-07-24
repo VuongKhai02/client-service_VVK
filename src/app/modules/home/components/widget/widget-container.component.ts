@@ -93,9 +93,7 @@ export class WidgetContainerComponent extends PageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.widget.widgetContext.containerChangeDetector = this.cd;
-    console.log("widget: ", this.widget);
-    
+    this.widget.widgetContext.containerChangeDetector = this.cd;    
   }
 
   isHighlighted(widget: DashboardWidget) {

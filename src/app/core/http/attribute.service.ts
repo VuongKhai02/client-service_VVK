@@ -22,6 +22,7 @@ import { EntityId } from '@shared/models/id/entity-id';
 import { AttributeData, AttributeScope, DataSortOrder, TimeseriesData } from '@shared/models/telemetry/telemetry.models';
 import { isDefinedAndNotNull } from '@core/utils';
 import { AggregationType } from '@shared/models/time/time.models';
+import { environment as env } from '@env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class AttributeService {
 
   public getEntityAttributes(entityId: EntityId, attributeScope: AttributeScope,
                              keys?: Array<string>, config?: RequestConfig): Observable<Array<AttributeData>> {
-    let url = `/api/plugins/telemetry/${entityId.entityType}/${entityId.id}/values/attributes/${attributeScope}`;
+    let url = env.integration_service + `/wrapperApis/plugins/telemetry/${entityId.entityType}/${entityId.id}/values/attributes/${attributeScope}`;
     if (keys && keys.length) {
       url += `?keys=${keys.join(',')}`;
     }
@@ -44,7 +45,7 @@ export class AttributeService {
   public deleteEntityAttributes(entityId: EntityId, attributeScope: AttributeScope, attributes: Array<AttributeData>,
                                 config?: RequestConfig): Observable<any> {
     const keys = attributes.map(attribute => encodeURI(attribute.key)).join(',');
-    return this.http.delete(`/api/plugins/telemetry/${entityId.entityType}/${entityId.id}/${attributeScope}` +
+    return this.http.delete(env.integration_service + `/wrapperApis/plugins/telemetry/${entityId.entityType}/${entityId.id}/${attributeScope}` +
       `?keys=${keys}`,
       defaultHttpOptionsFromConfig(config));
   }
@@ -82,7 +83,7 @@ export class AttributeService {
     }
     let saveEntityAttributesObservable: Observable<any>;
     if (Object.keys(attributesData).length) {
-      saveEntityAttributesObservable = this.http.post(`/api/plugins/telemetry/${entityId.entityType}/${entityId.id}/${attributeScope}`,
+      saveEntityAttributesObservable = this.http.post(env.integration_service + `/wrapperApis/plugins/telemetry/${entityId.entityType}/${entityId.id}/${attributeScope}`,
         attributesData, defaultHttpOptionsFromConfig(config));
     } else {
       saveEntityAttributesObservable = of(null);

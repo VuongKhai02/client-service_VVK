@@ -22,18 +22,44 @@
     display: none !important;
   }
 
+  // khai
+  .d_flex {
+    display: flex;
+  }
+
+  .justify_between {
+    justify-content: space-between;
+  }
+
+  .align_center {
+    align-items: center;
+  }
+
+  .tb-visible {
+    display: block !important;
+  }
+
+  .header_text {
+    margin: auto;
+    font-size: 16px;
+  }
+
   mat-sidenav-container {
     flex: 1;
   }
+
   mat-sidenav.tb-site-sidenav {
     width: 250px;
+
     @media (max-width:456px) {
       width: calc(100% - 56px);
     }
+
     .tb-nav-header {
       z-index: 2;
       flex-shrink: 0;
       white-space: nowrap;
+
       .tb-nav-header-toolbar {
         min-height: 64px;
         height: inherit;
@@ -42,8 +68,11 @@
         flex-shrink: 0;
         white-space: nowrap;
         border-bottom: 1px solid rgba(0, 0, 0, .12);
-        & > div {
-          height: 64px;
+
+        &>div {
+          // Khai code height:64px;
+          height: 73px;
+
           .tb-logo-title {
             width: auto;
             max-width: 100%;
@@ -54,19 +83,23 @@
         }
       }
     }
+
     .tb-side-menu-toolbar {
       overflow-y: auto;
       height: inherit;
       padding: 0;
     }
   }
+
   .tb-primary-toolbar {
     z-index: 2;
+
     h1 {
       font-size: 24px !important;
       font-weight: 400 !important;
     }
   }
+
   .tb-main-content {
     overflow: auto;
     position: relative;

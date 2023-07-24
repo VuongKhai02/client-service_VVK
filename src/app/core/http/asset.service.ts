@@ -22,6 +22,7 @@ import { PageLink } from '@shared/models/page/page-link';
 import { PageData } from '@shared/models/page/page-data';
 import { EntitySubtype } from '@app/shared/models/entity-type.models';
 import { Asset, AssetInfo, AssetSearchQuery } from '@app/shared/models/asset.models';
+import { environment as env } from '@env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -48,9 +49,12 @@ export class AssetService {
     return this.http.get<PageData<AssetInfo>>(`/api/customer/${customerId}/assetInfos${pageLink.toQuery()}&type=${type}`,
       defaultHttpOptionsFromConfig(config));
   }
+  
 
   public getAsset(assetId: string, config?: RequestConfig): Observable<Asset> {
-    return this.http.get<Asset>(`/api/asset/${assetId}`, defaultHttpOptionsFromConfig(config));
+
+    return this.http.get<Asset>(env.integration_service + `/wrapperApis/asset/${assetId}`, defaultHttpOptionsFromConfig(config));
+
   }
 
   public getAssets(assetIds: Array<string>, config?: RequestConfig): Observable<Array<Asset>> {
@@ -58,7 +62,7 @@ export class AssetService {
   }
 
   public getAssetInfo(assetId: string, config?: RequestConfig): Observable<AssetInfo> {
-    return this.http.get<AssetInfo>(`/api/asset/info/${assetId}`, defaultHttpOptionsFromConfig(config));
+    return this.http.get<AssetInfo>(env.integration_service + `/wrapperApis/asset/info/${assetId}`, defaultHttpOptionsFromConfig(config));
   }
 
   public saveAsset(asset: Asset, config?: RequestConfig): Observable<Asset> {

@@ -39,6 +39,7 @@ import { OtaUpdateModule } from '@home/pages/ota-update/ota-update.module';
 import { DeviceManagementModule } from '@home/pages/device-management/device-management.module';
 import { ProductLinesModule } from './product-lines/product-lines.module';
 import { PlcMachineModule } from './plc-machine/plc-machine.module';
+import { ProductModule } from './product/product.module';
 @NgModule({
   exports: [
     AdminModule,
@@ -60,7 +61,8 @@ import { PlcMachineModule } from './plc-machine/plc-machine.module';
     OtaUpdateModule,
     UserModule,
     DeviceManagementModule,
-    PlcMachineModule
+    PlcMachineModule,
+    ProductModule
   ],
   providers: [
     {

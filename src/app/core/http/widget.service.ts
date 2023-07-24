@@ -37,6 +37,7 @@ import { filter, map, mergeMap, tap } from 'rxjs/operators';
 import { WidgetTypeId } from '@shared/models/id/widget-type-id';
 import { NULL_UUID } from '@shared/models/id/has-uuid';
 import { ActivationEnd, Router } from '@angular/router';
+import { environment as env } from '@env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -92,18 +93,18 @@ export class WidgetService {
   }
 
   public getWidgetsBundle(widgetsBundleId: string,
-                          config?: RequestConfig): Observable<WidgetsBundle> {
+    config?: RequestConfig): Observable<WidgetsBundle> {
     return this.http.get<WidgetsBundle>(`/api/widgetsBundle/${widgetsBundleId}`, defaultHttpOptionsFromConfig(config));
   }
 
   public saveWidgetsBundle(widgetsBundle: WidgetsBundle,
-                           config?: RequestConfig): Observable<WidgetsBundle> {
+    config?: RequestConfig): Observable<WidgetsBundle> {
     return this.http.post<WidgetsBundle>('/api/widgetsBundle', widgetsBundle,
       defaultHttpOptionsFromConfig(config)).pipe(
-      tap(() => {
-        this.invalidateWidgetsBundleCache();
-      })
-    );
+        tap(() => {
+          this.invalidateWidgetsBundleCache();
+        })
+      );
   }
 
   public deleteWidgetsBundle(widgetsBundleId: string, config?: RequestConfig) {
@@ -111,42 +112,42 @@ export class WidgetService {
       mergeMap((widgetsBundle) => {
         return this.http.delete(`/api/widgetsBundle/${widgetsBundleId}`,
           defaultHttpOptionsFromConfig(config)).pipe(
-          tap(() => {
-            this.invalidateWidgetsBundleCache();
-            this.widgetsBundleDeletedSubject.next(widgetsBundle);
-          })
-        );
+            tap(() => {
+              this.invalidateWidgetsBundleCache();
+              this.widgetsBundleDeletedSubject.next(widgetsBundle);
+            })
+          );
       }
-    ));
+      ));
   }
 
   public getBundleWidgetTypes(bundleAlias: string, isSystem: boolean,
-                              config?: RequestConfig): Observable<Array<WidgetType>> {
+    config?: RequestConfig): Observable<Array<WidgetType>> {
     return this.http.get<Array<WidgetType>>(`/api/widgetTypes?isSystem=${isSystem}&bundleAlias=${bundleAlias}`,
       defaultHttpOptionsFromConfig(config));
   }
 
   public getBundleWidgetTypesDetails(bundleAlias: string, isSystem: boolean,
-                                     config?: RequestConfig): Observable<Array<WidgetTypeDetails>> {
+    config?: RequestConfig): Observable<Array<WidgetTypeDetails>> {
     return this.http.get<Array<WidgetTypeDetails>>(`/api/widgetTypesDetails?isSystem=${isSystem}&bundleAlias=${bundleAlias}`,
       defaultHttpOptionsFromConfig(config));
   }
 
   public getBundleWidgetTypeInfos(bundleAlias: string, isSystem: boolean,
-                                  config?: RequestConfig): Observable<Array<WidgetTypeInfo>> {
+    config?: RequestConfig): Observable<Array<WidgetTypeInfo>> {
     const key = bundleAlias + (isSystem ? '_sys' : '');
     if (this.widgetTypeInfosCache.has(key)) {
       return of(this.widgetTypeInfosCache.get(key));
     } else {
       return this.http.get<Array<WidgetTypeInfo>>(`/api/widgetTypesInfos?isSystem=${isSystem}&bundleAlias=${bundleAlias}`,
         defaultHttpOptionsFromConfig(config)).pipe(
-          tap((res) => this.widgetTypeInfosCache.set(key, res) )
-      );
+          tap((res) => this.widgetTypeInfosCache.set(key, res))
+        );
     }
   }
 
   public loadBundleLibraryWidgets(bundleAlias: string, isSystem: boolean,
-                                  config?: RequestConfig): Observable<Array<Widget>> {
+    config?: RequestConfig): Observable<Array<Widget>> {
     return this.getBundleWidgetTypes(bundleAlias, isSystem, config).pipe(
       map((types) => {
         types = types.sort((a, b) => {
@@ -199,55 +200,55 @@ export class WidgetService {
   }
 
   public getWidgetType(bundleAlias: string, widgetTypeAlias: string, isSystem: boolean,
-                       config?: RequestConfig): Observable<WidgetType> {
-    return this.http.get<WidgetType>(`/api/widgetType?isSystem=${isSystem}&bundleAlias=${bundleAlias}&alias=${widgetTypeAlias}`,
+    config?: RequestConfig): Observable<WidgetType> {
+    return this.http.get<WidgetType>(env.integration_service + `/wrapperApis/widgetType?isSystem=${isSystem}&bundleAlias=${bundleAlias}&alias=${widgetTypeAlias}`,
       defaultHttpOptionsFromConfig(config));
   }
 
   public saveWidgetTypeDetails(widgetInfo: WidgetInfo,
-                               id: WidgetTypeId,
-                               bundleAlias: string,
-                               createdTime: number,
-                               config?: RequestConfig): Observable<WidgetTypeDetails> {
+    id: WidgetTypeId,
+    bundleAlias: string,
+    createdTime: number,
+    config?: RequestConfig): Observable<WidgetTypeDetails> {
     const widgetTypeDetails = toWidgetTypeDetails(widgetInfo, id, undefined, bundleAlias, createdTime);
     return this.http.post<WidgetTypeDetails>('/api/widgetType', widgetTypeDetails,
       defaultHttpOptionsFromConfig(config)).pipe(
-      tap((savedWidgetType) => {
-        this.widgetTypeUpdatedSubject.next(savedWidgetType);
-      }));
+        tap((savedWidgetType) => {
+          this.widgetTypeUpdatedSubject.next(savedWidgetType);
+        }));
   }
 
   public saveImportedWidgetTypeDetails(widgetTypeDetails: WidgetTypeDetails,
-                                       config?: RequestConfig): Observable<WidgetTypeDetails> {
+    config?: RequestConfig): Observable<WidgetTypeDetails> {
     return this.http.post<WidgetTypeDetails>('/api/widgetType', widgetTypeDetails,
       defaultHttpOptionsFromConfig(config)).pipe(
-      tap((savedWidgetType) => {
-        this.widgetTypeUpdatedSubject.next(savedWidgetType);
-      }));
+        tap((savedWidgetType) => {
+          this.widgetTypeUpdatedSubject.next(savedWidgetType);
+        }));
   }
 
   public deleteWidgetType(bundleAlias: string, widgetTypeAlias: string, isSystem: boolean,
-                          config?: RequestConfig) {
+    config?: RequestConfig) {
     return this.getWidgetType(bundleAlias, widgetTypeAlias, isSystem, config).pipe(
       mergeMap((widgetTypeInstance) => {
-          return this.http.delete(`/api/widgetType/${widgetTypeInstance.id.id}`,
-            defaultHttpOptionsFromConfig(config)).pipe(
+        return this.http.delete(`/api/widgetType/${widgetTypeInstance.id.id}`,
+          defaultHttpOptionsFromConfig(config)).pipe(
             tap(() => {
               this.widgetTypeUpdatedSubject.next(widgetTypeInstance);
             })
           );
-        }
+      }
       ));
   }
 
   public getWidgetTypeById(widgetTypeId: string,
-                           config?: RequestConfig): Observable<WidgetTypeDetails> {
+    config?: RequestConfig): Observable<WidgetTypeDetails> {
     return this.http.get<WidgetTypeDetails>(`/api/widgetType/${widgetTypeId}`,
       defaultHttpOptionsFromConfig(config));
   }
 
   public getWidgetTemplate(widgetTypeParam: widgetType,
-                           config?: RequestConfig): Observable<WidgetInfo> {
+    config?: RequestConfig): Observable<WidgetInfo> {
     const templateWidgetType = widgetTypesData.get(widgetTypeParam);
     return this.getWidgetType(templateWidgetType.template.bundleAlias, templateWidgetType.template.alias, true,
       config).pipe(
@@ -267,36 +268,57 @@ export class WidgetService {
     return this.widgetsBundleDeletedSubject.asObservable();
   }
 
+  public getReportData() {
+    return this.http.get("http://192.168.68.95:8045/reportApi/getDataReport");
+  }
+
+  public getListError() {
+    return this.http.get("http://192.168.68.95:8045/api/report/getListError");
+  }
+
+  public getListErrorHMI() {
+    return this.http.get("http://192.168.68.95:8045/api/report/getListErrorHMI");
+  }
+
+  public getListAllError() {
+    return this.http.get("http://192.168.68.95:8045/reportApi/getAllListError");
+  }
+
+  public getListErrInCommon() {
+    return this.http.get("http://192.168.68.95:8045/reportApi/getAllListErrInCommon");
+  }
+
+
   private loadWidgetsBundleCache(config?: RequestConfig): Observable<any> {
     if (!this.allWidgetsBundles) {
       if (!this.loadWidgetsBundleCacheSubject) {
         this.loadWidgetsBundleCacheSubject = new ReplaySubject();
         this.http.get<Array<WidgetsBundle>>('/api/widgetsBundles',
           defaultHttpOptionsFromConfig(config)).subscribe(
-          (allWidgetsBundles) => {
-            this.allWidgetsBundles = allWidgetsBundles;
-            this.systemWidgetsBundles = new Array<WidgetsBundle>();
-            this.tenantWidgetsBundles = new Array<WidgetsBundle>();
-            this.allWidgetsBundles = this.allWidgetsBundles.sort((wb1, wb2) => {
-              let res = wb1.title.localeCompare(wb2.title);
-              if (res === 0) {
-                res = wb2.createdTime - wb1.createdTime;
-              }
-              return res;
+            (allWidgetsBundles) => {
+              this.allWidgetsBundles = allWidgetsBundles;
+              this.systemWidgetsBundles = new Array<WidgetsBundle>();
+              this.tenantWidgetsBundles = new Array<WidgetsBundle>();
+              this.allWidgetsBundles = this.allWidgetsBundles.sort((wb1, wb2) => {
+                let res = wb1.title.localeCompare(wb2.title);
+                if (res === 0) {
+                  res = wb2.createdTime - wb1.createdTime;
+                }
+                return res;
+              });
+              this.allWidgetsBundles.forEach((widgetsBundle) => {
+                if (widgetsBundle.tenantId.id === NULL_UUID) {
+                  this.systemWidgetsBundles.push(widgetsBundle);
+                } else {
+                  this.tenantWidgetsBundles.push(widgetsBundle);
+                }
+              });
+              this.loadWidgetsBundleCacheSubject.next();
+              this.loadWidgetsBundleCacheSubject.complete();
+            },
+            () => {
+              this.loadWidgetsBundleCacheSubject.error(null);
             });
-            this.allWidgetsBundles.forEach((widgetsBundle) => {
-              if (widgetsBundle.tenantId.id === NULL_UUID) {
-                this.systemWidgetsBundles.push(widgetsBundle);
-              } else {
-                this.tenantWidgetsBundles.push(widgetsBundle);
-              }
-            });
-            this.loadWidgetsBundleCacheSubject.next();
-            this.loadWidgetsBundleCacheSubject.complete();
-          },
-          () => {
-            this.loadWidgetsBundleCacheSubject.error(null);
-          });
       }
       return this.loadWidgetsBundleCacheSubject.asObservable();
     } else {

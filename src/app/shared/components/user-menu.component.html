@@ -19,14 +19,58 @@
   <div fxHide.lt-lg *ngIf="displayUserInfo" class="tb-user-info" fxLayout="row">
     <mat-icon class="material-icons tb-mini-avatar">account_circle</mat-icon>
     <div fxLayout="column" fxLayoutAlign="center">
-      <span *ngIf="userDisplayName$ | async; let userDisplayName" class="tb-user-display-name">{{ userDisplayName }}</span>
-      <span *ngIf="authorityName$ | async; let authorityName" class="tb-user-authority">{{ authorityName | translate }}</span>
+      <span *ngIf="userDisplayName$ | async; let userDisplayName" class="tb-user-display-name">{{ userDisplayName
+        }}</span>
+      <span *ngIf="authorityName$ | async; let authorityName" class="tb-user-authority">{{ authorityName | translate
+        }}</span>
     </div>
   </div>
-  <button mat-button mat-icon-button [matMenuTriggerFor]="userMenu">
+  <!-- khai code -->
+  <mat-form-field style="width: 7rem;
+  margin: 0 3rem;">
+    <mat-select [(ngModel)]="defaultFoodValue">
+      <mat-option style="font-size:12px" *ngFor="let language of languages" [value]="language.value">
+        {{language.label}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <!-- <mat-form-field class="mat-block">
+            <mat-label translate>language.language</mat-label>
+            <mat-select formControlName="language">
+              <mat-option *ngFor="let lang of languageList" [value]="lang">
+                {{ lang ? ('language.locales.' + lang | translate) : ''}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+  <div style="margin: auto 1rem;">
+    <button style="background-color: transparent;
+    border: none;">
+      <svg width="27" height="25" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M21.7576 16.8012L20.6326 14.9338C20.3963 14.5175 20.1826 13.73 20.1826 13.2688V10.4225C20.1826 7.77875 18.6301 5.495 16.3913 4.42625C15.8063 3.39125 14.7263 2.75 13.4888 2.75C12.2626 2.75 11.1601 3.41375 10.5751 4.46C8.38131 5.55125 6.86256 7.8125 6.86256 10.4225V13.2688C6.86256 13.73 6.64881 14.5175 6.41256 14.9225L5.27631 16.8012C4.82631 17.555 4.72506 18.3875 5.00631 19.1525C5.27631 19.9062 5.91756 20.4913 6.75006 20.7725C8.93256 21.515 11.2276 21.875 13.5226 21.875C15.8176 21.875 18.1126 21.515 20.2951 20.7838C21.0826 20.525 21.6901 19.9287 21.9826 19.1525C22.2751 18.3763 22.1963 17.5212 21.7576 16.8012Z"
+          fill="white" />
+        <path
+          d="M16.6838 23.0113C16.2113 24.3163 14.9625 25.25 13.5 25.25C12.6113 25.25 11.7338 24.89 11.115 24.2488C10.755 23.9113 10.485 23.4613 10.3275 23C10.4738 23.0225 10.62 23.0337 10.7775 23.0562C11.0363 23.09 11.3063 23.1237 11.5763 23.1462C12.2175 23.2025 12.87 23.2362 13.5225 23.2362C14.1638 23.2362 14.805 23.2025 15.435 23.1462C15.6713 23.1237 15.9075 23.1125 16.1325 23.0787C16.3125 23.0562 16.4925 23.0338 16.6838 23.0113Z"
+          fill="white" />
+      </svg>
+
+    </button>
+  </div>
+  <div style="margin: auto 1rem;">
+    <button style="background-color: transparent;
+    border: none;" (click)="logout()">
+      <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M10 20C4.477 20 0 15.523 0 10C0 4.477 4.477 -9.96412e-07 10 -9.96412e-07C11.5527 -0.00116746 13.0842 0.359772 14.4729 1.05414C15.8617 1.74851 17.0693 2.75717 18 4H15.29C14.1352 2.98176 12.7112 2.31836 11.1887 2.0894C9.66625 1.86044 8.11007 2.07565 6.70689 2.70921C5.30371 3.34277 4.11315 4.36776 3.27807 5.66119C2.44299 6.95461 1.99887 8.46153 1.999 10.0011C1.99913 11.5407 2.4435 13.0475 3.27879 14.3408C4.11409 15.6341 5.30482 16.6589 6.7081 17.2922C8.11139 17.9255 9.66761 18.1405 11.19 17.9113C12.7125 17.6821 14.1364 17.0184 15.291 16H18.001C17.0702 17.243 15.8624 18.2517 14.4735 18.9461C13.0846 19.6405 11.5528 20.0013 10 20ZM17 14V11H9V9H17V6L22 10L17 14Z"
+          fill="white" />
+      </svg>
+    </button>
+  </div>
+  <!-- khai -->
+  <!-- <button mat-button mat-icon-button [matMenuTriggerFor]="userMenu">
     <mat-icon class="material-icons">more_vert</mat-icon>
-  </button>
-  <mat-menu #userMenu="matMenu" xPosition="before">
+  </button> -->
+  <!-- <mat-menu #userMenu="matMenu" xPosition="before">
     <div class="tb-user-menu-items" *ngIf="authority$ | async; let authority">
       <button mat-menu-item (click)="openProfile()">
         <mat-icon class="material-icons">account_circle</mat-icon>
@@ -37,5 +81,5 @@
         <span translate>home.logout</span>
       </button>
     </div>
-  </mat-menu>
+  </mat-menu> -->
 </section>

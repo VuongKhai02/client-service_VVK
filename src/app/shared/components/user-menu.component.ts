@@ -24,6 +24,12 @@ import { map } from 'rxjs/operators';
 import { AuthService } from '@core/auth/auth.service';
 import { Router } from '@angular/router';
 
+// khai
+interface Language {
+  value:number;
+  label: string;
+}
+
 @Component({
   selector: 'tb-user-menu',
   templateUrl: './user-menu.component.html',
@@ -31,7 +37,20 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserMenuComponent implements OnInit, OnDestroy {
+  // khai
+  languages :Language[] = [
+    {
+      value:0,
+      label:"Tiếng việt"
+    },
+    {
+      value:1,
+      label:"English"
+    }
+  ]
 
+
+  defaultFoodValue = this.languages [0].value;
   @Input() displayUserInfo: boolean;
 
   authorities = Authority;
@@ -107,6 +126,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
+    localStorage.removeItem('user');
     this.authService.logout();
   }
 

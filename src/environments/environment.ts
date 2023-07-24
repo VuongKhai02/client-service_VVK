@@ -17,10 +17,10 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-
 export const environment = {
   appTitle: 'Nền tảng IOT platform', 
   production: false,
+  integration_service: window.location.href.includes('172.168.6.6') ? 'http://192.168.68.95:8888' : 'http://192.168.68.95:8888',
 // @ts-ignore
   tbVersion: TB_VERSION,
 // @ts-ignore

@@ -17,6 +17,7 @@
 export const environment = {
   appTitle: 'ThingsBoard',
   production: true,
+  integration_service: 'http://192.168.68.95:8888',
 // @ts-ignore
   tbVersion: TB_VERSION,
 // @ts-ignore

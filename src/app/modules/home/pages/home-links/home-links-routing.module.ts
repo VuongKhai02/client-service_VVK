@@ -22,15 +22,28 @@ import { Authority } from '@shared/models/authority.enum';
 import { Observable } from 'rxjs';
 import { HomeDashboard } from '@shared/models/dashboard.models';
 import { DashboardService } from '@core/http/dashboard.service';
+import { AppState } from '@app/core/core.state';
+import { select, Store } from '@ngrx/store';
+import { selectAuth, selectIsAuthenticated } from '../../../../core/auth/auth.selectors';
+import { AuthState } from '@app/core/auth/auth.models';
+import { take } from 'rxjs/operators';
 
 @Injectable()
 export class HomeDashboardResolver implements Resolve<HomeDashboard> {
 
-  constructor(private dashboardService: DashboardService) {
+  constructor(private store: Store<AppState>, private dashboardService: DashboardService) {
   }
 
   resolve(): Observable<HomeDashboard> {
-    return this.dashboardService.getHomeDashboard();
+    let auth: AuthState = null;
+    this.store.pipe(select(selectAuth), take(1)).subscribe(
+      (authState: AuthState) => {
+        auth = authState;
+      }
+    );
+    if (auth) {
+      return this.dashboardService.getHomeDashboard(auth.userDetails?.email);
+    }
   }
 }
 

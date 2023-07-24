@@ -40,8 +40,7 @@ $tb-mat-indigo: (
   A200: #536dfe,
   A400: #3d5afe,
   A700: #304ffe,
-  contrast: (
-    50: $dark-primary-text,
+  contrast: (50: $dark-primary-text,
     100: $dark-primary-text,
     200: $dark-primary-text,
     300: $light-primary-text,
@@ -66,14 +65,14 @@ $tb-primary: mat-palette($tb-mat-indigo);
 $tb-accent: mat-palette($mat-blue-grey);
 //$tb-accent: map_get($mat-grey, A700);
 
-$background: (background: map_get($mat-grey, 200));
+$background: (
+  background: map_get($mat-grey, 200)
+);
 
 $tb-theme-background: map_merge($mat-light-theme-background, $background);
 
-$tb-mat-theme: mat-light-theme(
-    $tb-primary,
-    $tb-accent
-);
+$tb-mat-theme: mat-light-theme($tb-primary,
+    $tb-accent);
 
 $tb-theme: map_merge($tb-mat-theme, (background: $tb-theme-background));
 
@@ -95,8 +94,7 @@ $tb-dark-mat-indigo: (
   A200: #536dfe,
   A400: #3d5afe,
   A700: #304ffe,
-  contrast: (
-    50: $dark-primary-text,
+  contrast: (50: $dark-primary-text,
     100: $dark-primary-text,
     200: $dark-primary-text,
     300: $dark-primary-text,
@@ -117,11 +115,11 @@ $tb-dark-primary: mat-palette($tb-dark-mat-indigo);
 
 $tb-dark-theme-background: (
   status-bar: black,
-  app-bar:    map_get($tb-dark-mat-indigo, 900),
+  app-bar: map_get($tb-dark-mat-indigo, 900),
   background: map_get($tb-dark-mat-indigo, 800),
-  hover:      rgba(white, 0.04),
-  card:       map_get($tb-dark-mat-indigo, 800),
-  dialog:     map_get($tb-dark-mat-indigo, 800),
+  hover: rgba(white, 0.04),
+  card: map_get($tb-dark-mat-indigo, 800),
+  dialog: map_get($tb-dark-mat-indigo, 800),
   disabled-button: rgba(white, 0.12),
   raised-button: map-get($tb-dark-mat-indigo, 50),
   focused-button: $light-focused,
@@ -134,8 +132,7 @@ $tb-dark-theme-background: (
 );
 
 @function get-tb-dark-theme($primary, $accent, $warn: mat-palette($mat-red)) {
-  @return (
-    primary: $primary,
+  @return (primary: $primary,
     accent: $accent,
     warn: $warn,
     is-dark: true,
@@ -144,10 +141,8 @@ $tb-dark-theme-background: (
   );
 }
 
-$tb-dark-theme: get-tb-dark-theme(
-    $tb-dark-primary,
-    $tb-accent
-);
+$tb-dark-theme: get-tb-dark-theme($tb-dark-primary,
+    $tb-accent);
 
 @mixin mat-fab-toolbar-theme($theme) {
   $primary: map-get($theme, primary);
@@ -161,16 +156,20 @@ $tb-dark-theme: get-tb-dark-theme(
       background: mat-color($background, app-bar);
       color: mat-color($foreground, text);
     }
+
     &.mat-primary {
       .mat-fab-toolbar-background {
         @include _mat-toolbar-color($primary);
       }
     }
+
     &.mat-accent {
       .mat-fab-toolbar-background {
-        @include _mat-toolbar-color($accent);
+        @include _mat-toolbar-color($primary);
+        // @include _mat-toolbar-color($accent);
       }
     }
+
     &.mat-warn {
       .mat-fab-toolbar-background {
         @include _mat-toolbar-color($warn);
@@ -196,14 +195,17 @@ $tb-dark-theme: get-tb-dark-theme(
       background: mat-color($background, app-bar);
       color: mat-color($foreground, text);
     }
+
     &.mat-primary {
       .mat-fab-toolbar-background {
         @include _mat-toolbar-inverse-color($primary);
       }
     }
+
     mat-toolbar {
       &.mat-primary {
         @include _mat-toolbar-inverse-color($primary);
+
         button.mat-icon-button {
           mat-icon {
             color: mat-color($primary);
@@ -211,6 +213,7 @@ $tb-dark-theme: get-tb-dark-theme(
         }
       }
     }
+
     .mat-fab {
       &.mat-primary {
         background: mat-color($primary, default-contrast);
@@ -224,7 +227,7 @@ $tb-dark-theme: get-tb-dark-theme(
 @mixin tb-components-theme($theme) {
   $primary: map-get($theme, primary);
 
-  mat-toolbar{
+  mat-toolbar {
     &.mat-hue-3 {
       background-color: mat-color($primary, 'A100');
     }
@@ -246,4 +249,3 @@ $tb-dark-theme: get-tb-dark-theme(
 .tb-dark {
   @include angular-material-theme($tb-dark-theme);
 }
-

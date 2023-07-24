@@ -389,7 +389,6 @@ export class DashboardPageComponent extends PageComponent implements IDashboardC
       this.currentDashboardScope = this.authUser.authority === Authority.TENANT_ADMIN ? 'tenant' : 'customer';
       this.currentCustomerId = this.authUser.customerId;
     }
-
     this.dashboardConfiguration = this.dashboard.configuration;
     this.dashboardCtx.dashboardTimewindow = this.dashboardConfiguration.timewindow;
     this.layouts.main.layoutCtx.widgets = new LayoutWidgetsArray(this.dashboardCtx);

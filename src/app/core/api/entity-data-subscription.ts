@@ -176,6 +176,7 @@ export class EntityDataSubscription {
   public subscribe(): Observable<EntityDataLoadResult> {
     this.entityDataResolveSubject = new ReplaySubject(1);
     if (this.entityDataSubscriptionOptions.isPaginatedDataSubscription) {
+      console.log("-------------------PHD this.entityDataSubscriptionOptions.isPaginatedDataSubscription-------------");
       this.started = true;
       this.dataResolved = true;
       this.subsTw = this.entityDataSubscriptionOptions.subscriptionTimewindow;
@@ -186,6 +187,7 @@ export class EntityDataSubscription {
         isDefinedAndNotNull(this.entityDataSubscriptionOptions.subscriptionTimewindow.realtimeWindowMs);
     }
     if (this.datasourceType === DatasourceType.entity) {
+      console.log("-------------------PHD this.datasourceType === DatasourceType.entity-------------");
       const entityFields: Array<EntityKey> =
         this.entityDataSubscriptionOptions.dataKeys.filter(dataKey => dataKey.type === DataKeyType.entityField).map(
           dataKey => ({ type: EntityKeyType.ENTITY_FIELD, key: dataKey.name })

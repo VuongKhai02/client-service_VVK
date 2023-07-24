@@ -25,6 +25,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Authority } from '@shared/models/authority.enum';
 import { guid } from '@core/utils';
 import { AuthState } from '@core/auth/auth.models';
+import { DashboardService } from '@core/http/dashboard.service';
 
 @Injectable({
   providedIn: 'root'
@@ -34,41 +35,41 @@ export class MenuService {
   menuSections$: Subject<Array<MenuSection>> = new BehaviorSubject<Array<MenuSection>>([]);
   homeSections$: Subject<Array<HomeSection>> = new BehaviorSubject<Array<HomeSection>>([]);
 
-  constructor(private store: Store<AppState>, private authService: AuthService) {
-    this.store.pipe(select(selectIsAuthenticated)).subscribe(
-      (authenticated: boolean) => {
-        if (authenticated) {
-          this.buildMenu();
+  sectionAA: Array<MenuSection> = [];
+  ngOnInit() {
+
+  }
+  constructor(private store: Store<AppState>, private authService: AuthService, private dashboardService: DashboardService) {
+    this.store.pipe(select(selectAuth)).subscribe(
+      (authState: AuthState) => {
+        if (authState.authUser) {
+          this.dashboardService.getHomeDashboard(authState.userDetails?.email).subscribe(homeDashboard => {
+            this.buildMenu(homeDashboard, authState);
+          })
         }
       }
     );
   }
 
-  private buildMenu() {
-    this.store.pipe(select(selectAuth), take(1)).subscribe(
-      (authState: AuthState) => {
-        if (authState.authUser) {
-          let menuSections: Array<MenuSection>;
-          let homeSections: Array<HomeSection>;
-          switch (authState.authUser.authority) {
-            case Authority.SYS_ADMIN:
-              menuSections = this.buildSysAdminMenu(authState);
-              homeSections = this.buildSysAdminHome(authState);
-              break;
-            case Authority.TENANT_ADMIN:
-              menuSections = this.buildTenantAdminMenu(authState);
-              homeSections = this.buildTenantAdminHome(authState);
-              break;
-            case Authority.CUSTOMER_USER:
-              menuSections = this.buildCustomerUserMenu(authState);
-              homeSections = this.buildCustomerUserHome(authState);
-              break;
-          }
-          this.menuSections$.next(menuSections);
-          this.homeSections$.next(homeSections);
-        }
-      }
-    );
+  private buildMenu(data, authState) {
+    let menuSections: Array<MenuSection>;
+    let homeSections: Array<HomeSection>;
+    switch (authState.authUser.authority) {
+      case Authority.SYS_ADMIN:
+        menuSections = this.buildSysAdminMenu(authState);
+        homeSections = this.buildSysAdminHome(authState);
+        break;
+      case Authority.TENANT_ADMIN:
+        menuSections = this.buildTenantAdminMenu(authState, data);
+        homeSections = this.buildTenantAdminHome(authState);
+        break;
+      case Authority.CUSTOMER_USER:
+        menuSections = this.buildCustomerUserMenu(authState, data);
+        homeSections = this.buildCustomerUserHome(authState);
+        break;
+    }
+    this.menuSections$.next(menuSections);
+    this.homeSections$.next(homeSections);
   }
 
   private buildSysAdminMenu(authState: AuthState): Array<MenuSection> {
@@ -227,7 +228,7 @@ export class MenuService {
     return homeSections;
   }
 
-  private buildTenantAdminMenu(authState: AuthState): Array<MenuSection> {
+  private buildTenantAdminMenuOld(authState: AuthState): Array<MenuSection> {
     const sections: Array<MenuSection> = [];
     sections.push(
       {
@@ -308,7 +309,7 @@ export class MenuService {
         type: 'link',
         path: '/plc-machine',
         icon: 'touch_app'
-      }  
+      }
     );
     if (authState.edgesSupportEnabled) {
       sections.push(
@@ -391,8 +392,135 @@ export class MenuService {
             icon: 'folder'
           }
         ]
+      },
+      {
+        id: guid(),
+        name: 'Product',
+        type: 'link',
+        path: '/product',
+        icon: 'settings_backup_restore'
       }
     );
+    return sections;
+  }
+
+  private buildTenantAdminMenu(authState: AuthState, data: any): Array<MenuSection> {
+    let sections: Array<MenuSection> = [];
+    sections.push(
+      {
+        id: guid(),
+        name: 'home.home',
+        type: 'link',
+        path: '/home',
+        notExact: true,
+        icon: 'home'
+      }
+    );
+    // if (data.roles.includes('Quản lý sản phẩm_version2')) {
+    //   sections.push(
+    //     {
+    //       id: guid(),
+    //       name: 'Sản phẩm',
+    //       type: 'link',
+    //       path: '/product',
+    //       icon: 'settings_backup_restore'
+    //     }
+    //   )
+    // }
+    if (data.configuration) {
+      let widgets = data.configuration.widgets;
+      for (let index in widgets) {
+        let item = widgets[index];
+        sections.push(
+          {
+            id: guid(),
+            name: item.config.settings.name,
+            type: 'link',
+            path: item.config.settings.path,
+            notExact: true,
+            icon: item.config.settings.icon
+          }
+        )
+      }
+    }
+    if(data.roles.includes('manager_scada') || authState.userDetails.email.includes('ecyberlinh@gmail.com')){
+      sections.push(
+        {
+          id: guid(),
+          name: 'asset.assets',
+          type: 'link',
+          path: '/assets',
+          icon: 'domain'
+        },
+        {
+          id: guid(),
+          name: 'device.devices',
+          type: 'link',
+          path: '/devices',
+          icon: 'devices_other'
+        },
+        {
+          id: guid(),
+          name: 'device-profile.device-profiles',
+          type: 'link',
+          path: '/deviceProfiles',
+          icon: 'mdi:alpha-d-box',
+          isMdiIcon: true
+        },
+        {
+          id: guid(),
+          name: 'ota-update.ota-updates',
+          type: 'link',
+          path: '/otaUpdates',
+          icon: 'memory'
+        },
+        {
+          id: guid(),
+          name: 'entity-view.entity-views',
+          type: 'link',
+          path: '/entityViews',
+          icon: 'view_quilt'
+        },
+        {
+          id: guid(),
+          name: 'rulechain.rulechains',
+          type: 'link',
+          path: '/ruleChains',
+          icon: 'settings_ethernet'
+        },
+        {
+          id: guid(),
+          name: 'widget.widget-library',
+          type: 'link',
+          path: '/widgets-bundles',
+          icon: 'now_widgets'
+        },
+        {
+          id: guid(),
+          name: 'admin.system-settings',
+          type: 'toggle',
+          path: '/settings',
+          height: '80px',
+          icon: 'settings',
+          pages: [
+            {
+              id: guid(),
+              name: 'admin.home-settings',
+              type: 'link',
+              path: '/settings/home',
+              icon: 'settings_applications'
+            },
+            {
+              id: guid(),
+              name: 'resource.resources-library',
+              type: 'link',
+              path: '/settings/resources-library',
+              icon: 'folder'
+            }
+          ]
+        }
+        )
+    }
     return sections;
   }
 
@@ -530,7 +658,7 @@ export class MenuService {
     return homeSections;
   }
 
-  private buildCustomerUserMenu(authState: AuthState): Array<MenuSection> {
+  private buildCustomerUserMenuOld(authState: AuthState): Array<MenuSection> {
     const sections: Array<MenuSection> = [];
     sections.push(
       {
@@ -583,6 +711,80 @@ export class MenuService {
         icon: 'dashboard'
       }
     );
+    return sections;
+  }
+
+  private buildCustomerUserMenu(authState: AuthState, data: any): Array<MenuSection> {
+    const sections: Array<MenuSection> = [];
+    sections.push(
+      {
+        id: guid(),
+        name: 'home.home',
+        type: 'link',
+        path: '/home',
+        notExact: true,
+        icon: 'home'
+      }
+    );
+    if (data.configuration) {
+      let widgets = data.configuration.widgets;
+      for (let index in widgets) {
+        let item = widgets[index];
+        sections.push(
+          {
+            id: guid(),
+            name: item.config.settings.name,
+            type: 'link',
+            path: item.config.settings.path,
+            notExact: true,
+            icon: item.config.settings.icon
+          }
+        )
+      }
+    }
+    // sections.push(
+    //   {
+    //     id: guid(),
+    //     name: 'asset.assets',
+    //     type: 'link',
+    //     path: '/assets',
+    //     icon: 'domain'
+    //   },
+    //   {
+    //     id: guid(),
+    //     name: 'device.devices',
+    //     type: 'link',
+    //     path: '/devices',
+    //     icon: 'devices_other'
+    //   },
+    //   {
+    //     id: guid(),
+    //     name: 'entity-view.entity-views',
+    //     type: 'link',
+    //     path: '/entityViews',
+    //     icon: 'view_quilt'
+    //   }
+    // );
+    // if (authState.edgesSupportEnabled) {
+    //   sections.push(
+    //     {
+    //       id: guid(),
+    //       name: 'edge.edge-instances',
+    //       type: 'link',
+    //       path: '/edgeInstances',
+    //       icon: 'router'
+    //     }
+    //   );
+    // }
+    // sections.push(
+    //   {
+    //     id: guid(),
+    //     name: 'dashboard.dashboards',
+    //     type: 'link',
+    //     path: '/dashboards',
+    //     icon: 'dashboard'
+    //   }
+    // );
     return sections;
   }
 

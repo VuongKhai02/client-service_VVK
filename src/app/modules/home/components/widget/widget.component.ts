@@ -745,7 +745,6 @@ export class WidgetComponent extends PageComponent implements OnInit, AfterViewI
       this.widgetContext.$containerParent = $(containerElement);
 
       try {
-        console.log("widget info: ", this.widgetInfo.componentFactory);
         this.dynamicWidgetComponentRef = this.widgetContentContainer.createComponent(this.widgetInfo.componentFactory, 0, injector);
         this.cd.detectChanges();
       } catch (e) {

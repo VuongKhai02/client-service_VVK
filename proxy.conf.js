@@ -13,14 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const forwardUrl = "http://192.168.68.21:8080/";
-const wsForwardUrl = "ws://192.168.68.21:8080/";
-// const forwardUrl = "http://scadabroker.canhbaoews.com.vn/";
-// const wsForwardUrl = "ws://scadabroker.canhbaoews.com.vn/";
-// const forwardUrl = "http://localhost:8080/";
-// const wsForwardUrl = "ws://localhost:8080/";
-const customizeUrl = "http://localhost:9090/";
-const vpnUrl = "http://http://192.168.68.21:8080/"
+const forwardUrl = "http://192.168.68.95:8080/";
+const outh2Url = "http://192.168.68.95:8080/";
+const wsForwardUrl = "ws://192.168.68.95:8080/";
+
+const customizeUrl = "http://192.168.68.95:9090/";
 const ruleNodeUiforwardUrl = forwardUrl;
 
 const PROXY_CONFIG = {
@@ -37,11 +34,11 @@ const PROXY_CONFIG = {
     "secure": false,
   },
   "/oauth2": {
-    "target": forwardUrl,
+    "target": outh2Url,
     "secure": false,
   },
   "/login/oauth2": {
-    "target": forwardUrl,
+    "target": outh2Url,
     "secure": false,
   },
   "/api/ws": {

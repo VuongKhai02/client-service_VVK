@@ -35,3 +35,5 @@ export * from './rule-chain.service';
 export * from './tenant.service';
 export * from './user.service';
 export * from './widget.service';
+export * from './integration.service';
+

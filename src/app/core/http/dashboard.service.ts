@@ -24,6 +24,7 @@ import { Dashboard, DashboardInfo, HomeDashboard, HomeDashboardInfo } from '@sha
 import { WINDOW } from '@core/services/window.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, map, publishReplay, refCount } from 'rxjs/operators';
+import { environment as env } from '@env/environment';
 
 // @dynamic
 @Injectable({
@@ -68,8 +69,9 @@ export class DashboardService {
   }
 
   public getDashboard(dashboardId: string, config?: RequestConfig): Observable<Dashboard> {
-    return this.http.get<Dashboard>(`/api/dashboard/${dashboardId}`, defaultHttpOptionsFromConfig(config));
+    return this.http.get<Dashboard>(env.integration_service + `/wrapperApis/dashboard/${dashboardId}`, defaultHttpOptionsFromConfig(config));
   }
+
 
   public getDashboardInfo(dashboardId: string, config?: RequestConfig): Observable<DashboardInfo> {
     return this.http.get<DashboardInfo>(`/api/dashboard/info/${dashboardId}`, defaultHttpOptionsFromConfig(config));
@@ -122,8 +124,9 @@ export class DashboardService {
       defaultHttpOptionsFromConfig(config));
   }
 
-  public getHomeDashboard(config?: RequestConfig): Observable<HomeDashboard> {
-    return this.http.get<HomeDashboard>('/api/dashboard/home', defaultHttpOptionsFromConfig(config));
+  public getHomeDashboard(email:String, config?: RequestConfig): Observable<HomeDashboard> {
+    // return this.http.get<HomeDashboard>('/api/dashboard/home', defaultHttpOptionsFromConfig(config)); //old version
+	return this.http.get<HomeDashboard>(env.integration_service + `/publicApis/role` +`?user=` + email, defaultHttpOptionsFromConfig(config));
   }
 
   public getTenantHomeDashboardInfo(config?: RequestConfig): Observable<HomeDashboardInfo> {

@@ -187,7 +187,6 @@ export class DashboardComponent extends PageComponent implements IDashboardCompo
   }
 
   ngOnInit(): void {
-    console.log("DUng ------------->", this.dashboardWidgets);
     if (!this.dashboardTimewindow) {
       this.dashboardTimewindow = this.timeService.defaultTimewindow();
     }

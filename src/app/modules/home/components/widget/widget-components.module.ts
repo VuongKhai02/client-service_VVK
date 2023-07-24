@@ -41,6 +41,8 @@ import { EdgesOverviewWidgetComponent } from '@home/components/widget/lib/edges-
 import { JsonInputWidgetComponent } from '@home/components/widget/lib/json-input-widget.component';
 import { QrCodeWidgetComponent } from '@home/components/widget/lib/qrcode-widget.component';
 import { MarkdownWidgetComponent } from '@home/components/widget/lib/markdown-widget.component';
+import { GiamsatEntitiesTableWidgetComponent } from '@home/components/widget/lib/giamsat-entities-table-widget.component';
+import { SanluongEntitiesTableComponent } from '@home/components/widget/lib/sanluong-entities-table.component';
 
 @NgModule({
   declarations:
@@ -62,7 +64,9 @@ import { MarkdownWidgetComponent } from '@home/components/widget/lib/markdown-wi
       NavigationCardsWidgetComponent,
       NavigationCardWidgetComponent,
       QrCodeWidgetComponent,
-      MarkdownWidgetComponent
+      MarkdownWidgetComponent,
+      GiamsatEntitiesTableWidgetComponent,
+      SanluongEntitiesTableComponent
     ],
   imports: [
     CommonModule,
@@ -86,7 +90,9 @@ import { MarkdownWidgetComponent } from '@home/components/widget/lib/markdown-wi
     NavigationCardsWidgetComponent,
     NavigationCardWidgetComponent,
     QrCodeWidgetComponent,
-    MarkdownWidgetComponent
+    MarkdownWidgetComponent,
+    GiamsatEntitiesTableWidgetComponent,
+    SanluongEntitiesTableComponent
   ],
   providers: [
     CustomDialogService,

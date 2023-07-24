@@ -1,0 +1,24 @@
+<div>
+    <mat-toolbar color="accent">
+      <h2 translate>Are you sure delete this {{data.name}} '{{data.element.name}}'?</h2>
+      <span fxFlex></span>
+      <button mat-icon-button
+                (click)="cancel()"
+                  type="button">
+        <mat-icon class="material-icons">close</mat-icon>
+      </button>
+    </mat-toolbar>
+    <div mat-dialog-content>
+      <div>Be careful, after the confirmation the asset and all related data will become unrecoverable.</div>
+    </div>
+    <!-- <mat-progress-bar color="warn" mode="indeterminate">
+    </mat-progress-bar> -->
+    <!-- <div style="height: 4px;"></div> -->
+    <div mat-dialog-actions fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="end">
+      <button mat-button
+              (click)="cancel()">{{ 'action.cancel' | translate }}</button>
+      <button mat-raised-button
+              color="accent"
+              (click)="delete()">{{ 'action.delete' | translate }}</button>
+    </div>
+  </div>
