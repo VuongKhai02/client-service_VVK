@@ -78,9 +78,6 @@ export class HomeComponent extends PageComponent implements AfterViewInit, OnIni
 
 
   ngOnInit() {
-    console.log("navv", this.sidenav);
-    
-
     this.authUser$ = this.store.pipe(select(selectAuthUser));
     this.userDetails$ = this.store.pipe(select(selectUserDetails));
     this.userDetailsString = this.userDetails$.pipe(map((user: User) => {
@@ -119,23 +116,16 @@ export class HomeComponent extends PageComponent implements AfterViewInit, OnIni
   }
 
   // khai2607
-  toggleMenu(){
-    this.sideNavOpen_k = !this.sideNavOpen_k;
-    console.log("this", this.sideNavOpen_k);
-    
-  }
-
   toggleClick() {
     this.sidenav.toggle();
-    console.log("hello how r u", this.sidenav);
     if(this.sidenav.opened == false){
-      console.log("closed");
       this.sideNavOpen_k = false;
     }
     else{
       this.sideNavOpen_k = true;
     }
   }
+  // 
 
   sidenavClicked() {
     if (this.sidenavMode === 'over') {
