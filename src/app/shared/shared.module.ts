@@ -149,6 +149,8 @@ import { TogglePasswordComponent } from '@shared/components/button/toggle-passwo
 import { markedOptionsFactory } from '@shared/components/markdown.factory';
 import { EntityAutocompleteErrorComponent } from './components/entity/entity-autocomplete-error.component';
 
+import {MatBadgeModule} from '@angular/material/badge';
+
 @NgModule({
   providers: [
     DatePipe,
@@ -251,6 +253,7 @@ import { EntityAutocompleteErrorComponent } from './components/entity/entity-aut
     EntityAutocompleteErrorComponent
   ],
   imports: [
+    MatBadgeModule,
     CommonModule,
     RouterModule,
     TranslateModule,
@@ -309,6 +312,7 @@ import { EntityAutocompleteErrorComponent } from './components/entity/entity-aut
     })
   ],
   exports: [
+    MatBadgeModule,
     FooterComponent,
     LogoComponent,
     FooterFabButtonsComponent,

@@ -62,6 +62,8 @@ export class ProfileComponent extends PageComponent implements OnInit, HasConfir
 
   ngOnInit() {
     this.buildProfileForm();
+    console.log("init ",this.route.snapshot.data.user);
+    
     this.userLoaded(this.route.snapshot.data.user);
   }
 

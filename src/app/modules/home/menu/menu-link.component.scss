@@ -14,5 +14,13 @@
  * limitations under the License.
  */
 :host {
+    .item_custom_k {
+        position: relative;
+        height: 46px;
 
+        .icon_custom_k {
+            position: absolute;
+            right: 4px;
+        }
+    }
 }

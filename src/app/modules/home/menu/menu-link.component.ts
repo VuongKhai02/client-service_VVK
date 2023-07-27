@@ -24,6 +24,8 @@ import { MenuSection } from '@core/services/menu.models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MenuLinkComponent implements OnInit {
+  @Input('MyCountt') countt: boolean;
+
 
   @Input() section: MenuSection;
 
@@ -31,6 +33,7 @@ export class MenuLinkComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("Menulink", this.countt)
   }
 
 }

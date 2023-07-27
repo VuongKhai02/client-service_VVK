@@ -16,18 +16,13 @@
 
 -->
 <mat-sidenav-container>
-  <div>Chị hà ăn cứt</div>
   <mat-sidenav #sidenav class="tb-site-sidenav mat-elevation-z2" [disableClose]="sidenavOpened"
     (click)="sidenavClicked()" [mode]="sidenavMode" [opened]="sidenavOpened && !forceFullscreen">
-    <header class="tb-nav-header">
+    <header *ngIf="this.sideNavOpen_k ==true" class="tb-nav-header">
       <mat-toolbar color="accent" class="tb-nav-header-toolbar" style="background: #2A3884;">
         <!-- khai -->
         <div fxFlex="auto" fxLayout="row" style="margin-left: 32px;
         align-items: center;">
-          <!-- <img [src]="logo"
-               aria-label="logo" class="tb-logo-title"/> -->
-          <!-- <div class="tb-logo-title">Rạng Đông SCADA</div> -->
-          <!-- khai -->
           <svg width="194" height="54" viewBox="0 0 194 54" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M46 40.05V14.85L24.4 29.25V52.146L46 40.05Z" fill="white" />
             <path
@@ -41,27 +36,40 @@
         </div>
       </mat-toolbar>
     </header>
+    <header *ngIf="this.sideNavOpen_k ==false" class="tb-nav-header tb_nav_cusom_k">
+      <mat-toolbar color="accent" class="tb-nav-header-toolbar" style="background: #2A3884;">
+        <!-- khai -->
+        <div fxFlex="auto" fxLayout="row" style="margin-left: 32px;
+        align-items: center;">
+          <!-- <img [src]="logo"
+               aria-label="logo" class="tb-logo-title"/> -->
+          <!-- <div class="tb-logo-title">Rạng Đông SCADA</div> -->
+          <!-- khai -->
+          <svg class="img_header_custom_k" width="47" height="54" viewBox="0 0 47 54" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M46 40.05V14.85L24.4 29.25V52.146L46 40.05Z" fill="white" />
+            <path
+              d="M46 14.85V40.05L24.4 52.146M46 14.85V13.95L23.5 1.34998L1 13.95V40.05L23.5 52.65L24.4 52.146M46 14.85L24.4 29.25V52.146"
+              stroke="white" />
+          </svg>
+        </div>
+      </mat-toolbar>
+    </header>
     <mat-toolbar style="background-color: #E5E5E5;
     color: #000;" color="accent" fxFlex="0%" class="tb-side-menu-toolbar" fxLayout="column" role="navigation">
-      <tb-side-menu></tb-side-menu>
-      <button [fxShow]="!forceFullscreen" mat-icon-button id="main" class="tb-visible" fxHide.gt-sm
-        (click)="sidenav.toggle()">
-        <mat-icon class="material-icons">menu</mat-icon>
-      </button>
+      <tb-side-menu [MyCount]="this.sideNavOpen_k"></tb-side-menu>
+      <div *ngIf="this.sidenav.opened == false">
+        <li>abc</li>
+      </div>
     </mat-toolbar>
   </mat-sidenav>
   <mat-sidenav-content>
     <div fxLayout="column" role="main" style="height: 100%;">
       <mat-toolbar fxLayout="row" color="accent" class="mat-elevation-z1 tb-accent-toolbar d-flex justify_between"
         style="height: 74px;background: #2A3884;">
-        <!-- <button [fxShow]="!forceFullscreen" mat-icon-button id="main" [ngClass]="{'tb-invisible': displaySearchMode()}"
-          fxHide.gt-sm (click)="sidenav.toggle()">
-          <mat-icon class="material-icons">menu</mat-icon>
-        </button> -->
-        <!--  -->
         <div class="d_flex align_center justify_between ">
           <button [fxShow]="!forceFullscreen" mat-icon-button id="main" class="tb-visible" fxHide.gt-sm
-            (click)="sidenav.toggle()">
+            (click)="toggleClick()">
             <mat-icon class="material-icons">menu</mat-icon>
           </button>
 

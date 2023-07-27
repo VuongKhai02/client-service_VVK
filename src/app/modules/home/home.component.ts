@@ -50,6 +50,9 @@ export class HomeComponent extends PageComponent implements AfterViewInit, OnIni
   sidenavMode: 'over' | 'push' | 'side' = 'side';
   sidenavOpened = true;
 
+  // khai
+  sideNavOpen_k:boolean = true;
+
   //logo = 'assets/logo_title_white.svg';rangdong_logo.jpg
   logo = 'assets/rangdong_logo.jpg';
   @ViewChild('sidenav')
@@ -73,7 +76,10 @@ export class HomeComponent extends PageComponent implements AfterViewInit, OnIni
     super(store);
   }
 
+
   ngOnInit() {
+    console.log("navv", this.sidenav);
+    
 
     this.authUser$ = this.store.pipe(select(selectAuthUser));
     this.userDetails$ = this.store.pipe(select(selectUserDetails));
@@ -109,6 +115,26 @@ export class HomeComponent extends PageComponent implements AfterViewInit, OnIni
         })
       )
       .subscribe();
+      console.log("navv after init", this.sidenav);
+  }
+
+  // khai2607
+  toggleMenu(){
+    this.sideNavOpen_k = !this.sideNavOpen_k;
+    console.log("this", this.sideNavOpen_k);
+    
+  }
+
+  toggleClick() {
+    this.sidenav.toggle();
+    console.log("hello how r u", this.sidenav);
+    if(this.sidenav.opened == false){
+      console.log("closed");
+      this.sideNavOpen_k = false;
+    }
+    else{
+      this.sideNavOpen_k = true;
+    }
   }
 
   sidenavClicked() {

@@ -14,7 +14,7 @@
 /// limitations under the License.
 ///
 
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit,Input  } from '@angular/core';
 import { MenuService } from '@core/services/menu.service';
 import { MenuSection } from '@core/services/menu.models';
 
@@ -27,6 +27,8 @@ import { MenuSection } from '@core/services/menu.models';
 export class SideMenuComponent implements OnInit {
 
   menuSections$ = this.menuService.menuSections();
+  @Input('MyCount') count: boolean;
+
 
   constructor(private menuService: MenuService) {
   }

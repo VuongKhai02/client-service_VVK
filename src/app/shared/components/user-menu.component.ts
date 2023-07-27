@@ -22,7 +22,10 @@ import { AppState } from '@core/core.state';
 import { selectAuthUser, selectUserDetails } from '@core/auth/auth.selectors';
 import { map } from 'rxjs/operators';
 import { AuthService } from '@core/auth/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ActionSettingsChangeLanguage } from '@app/core/settings/settings.actions';
+import { environment as env } from '@env/environment';
+
 
 // khai
 interface Language {
@@ -37,23 +40,25 @@ interface Language {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserMenuComponent implements OnInit, OnDestroy {
+  constructor(private store: Store<AppState>,
+    private router: Router,
+    private authService: AuthService,private route: ActivatedRoute) {
+}
+
+languageList = env.supportedLangs;
+matBadgeCount:number = 15;
+  user: User;
   // khai
-  languages :Language[] = [
-    {
-      value:0,
-      label:"Tiếng việt"
-    },
-    {
-      value:1,
-      label:"English"
-    }
-  ]
-
-
-  defaultFoodValue = this.languages [0].value;
+  defaultLang = 'en_US';
   @Input() displayUserInfo: boolean;
 
   authorities = Authority;
+
+  
+  selectLangEvent(event :any){
+    this.store.dispatch(new ActionSettingsChangeLanguage({ userLang: event.value }));
+  }
+
 
   authority$ = this.store.pipe(
     select(selectAuthUser),
@@ -70,10 +75,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
     map((user) => this.getUserDisplayName(user))
   );
 
-  constructor(private store: Store<AppState>,
-              private router: Router,
-              private authService: AuthService) {
-  }
+  
 
   ngOnInit(): void {
   }
