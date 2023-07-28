@@ -602,7 +602,8 @@
         "enter-search": "Enter search",
         "created-time": "Created time",
         "loading": "Loading...",
-        "proceed": "Proceed"
+        "proceed": "Proceed",
+        "header": "Supervisory Control and Data Acquisition"
     },
     "content-type": {
         "json": "Json",

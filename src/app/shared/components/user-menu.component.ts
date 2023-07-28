@@ -27,6 +27,8 @@ import { ActionSettingsChangeLanguage } from '@app/core/settings/settings.action
 import { environment as env } from '@env/environment';
 
 
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
 // khai
 interface Language {
   value:number;
@@ -42,7 +44,8 @@ interface Language {
 export class UserMenuComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState>,
     private router: Router,
-    private authService: AuthService,private route: ActivatedRoute) {
+    private authService: AuthService,private route: ActivatedRoute,
+    public dialog: MatDialog) {
 }
 
 languageList = env.supportedLangs;
@@ -53,6 +56,20 @@ matBadgeCount:number = 15;
   @Input() displayUserInfo: boolean;
 
   authorities = Authority;
+
+  
+  openDialog(templateRef) {
+    let dialogRef = this.dialog.open(templateRef, {
+     width: '400px',
+     data: { message: 'Bạn có chắc chắn muốn đăng xuất?' },
+   });
+  }
+
+  cancel(){
+    this.dialog.closeAll();
+  }
+
+  
 
   
   selectLangEvent(event :any){
@@ -130,6 +147,8 @@ matBadgeCount:number = 15;
   logout(): void {
     localStorage.removeItem('user');
     this.authService.logout();
+    this.dialog.closeAll();
+
   }
 
 }

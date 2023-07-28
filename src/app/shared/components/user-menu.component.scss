@@ -13,11 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+.d_flex {
+  display: flex;
+}
+
+.justify_between {
+  justify-content: space-between;
+}
+
+.bg-transparent {
+  background: transparent;
+  border: none;
+}
+
 :host {
+
 
 
   div.tb-user-info {
     line-height: 1.5;
+
+    .avartar_btn_custom_k {
+      margin: auto;
+
+      mat-icon:hover {
+        opacity: 0.3;
+        cursor: pointer;
+      }
+
+      .avatar_custom_k {
+        color: rgb(235, 235, 235) !important;
+
+      }
+    }
 
     span {
       text-transform: none;

@@ -72,12 +72,8 @@
             (click)="toggleClick()">
             <mat-icon class="material-icons">menu</mat-icon>
           </button>
-
           <div>
-            <!-- Supervisory Control and Data Acquisition
-
- -->
-            <p class="header_text">{{'common.header'}}</p>
+            <p class="header_text">{{'common.header' | translate}}</p>
           </div>
           <!-- khai -->
           <button [fxShow]="forceFullscreen" mat-icon-button [ngClass]="{'tb-invisible': displaySearchMode()}"
@@ -107,8 +103,8 @@
         <!--  -->
         <div class="d_flex align_center justify_between ">
 
-          <button *ngIf="fullscreenEnabled" [fxShow]="!displaySearchMode()" mat-icon-button fxHide.lt-md
-            (click)="toggleFullscreen()">
+          <button matTooltip="Full screen" *ngIf="fullscreenEnabled" [fxShow]="!displaySearchMode()" mat-icon-button
+            fxHide.lt-md (click)="toggleFullscreen()">
             <mat-icon class="material-icons">{{ isFullscreen() ? 'fullscreen_exit' : 'fullscreen' }}</mat-icon>
           </button>
           <tb-user-menu [displayUserInfo]="!displaySearchMode()"></tb-user-menu>
