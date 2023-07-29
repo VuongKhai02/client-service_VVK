@@ -15,7 +15,7 @@
     limitations under the License.
 
 -->
-<div fxFlex class="tb-breadcrumb" fxLayout="row">
+<div fxFlex class="tb-breadcrumb custom_k" fxLayout="row">
   <h1 fxFlex fxHide.gt-sm *ngIf="lastBreadcrumb$ | async; let breadcrumb">
     {{ breadcrumb.ignoreTranslate ? (breadcrumb.labelFunction ? breadcrumb.labelFunction() : breadcrumb.label) :
     (breadcrumb.label | translate) }}
@@ -39,8 +39,8 @@
       <!-- <mat-icon *ngIf="!breadcrumb.isMdiIcon" class="material-icons">
         {{ breadcrumb.icon }}
       </mat-icon> -->
-      {{ breadcrumb.ignoreTranslate ? (breadcrumb.labelFunction ? breadcrumb.labelFunction() : breadcrumb.label) :
-      (breadcrumb.label | translate) }}
+      <span>{{ breadcrumb.ignoreTranslate ? (breadcrumb.labelFunction ? breadcrumb.labelFunction() : breadcrumb.label) :
+        (breadcrumb.label | translate) }}</span>
     </span>
     <span class="divider" [fxHide]="isLast"> > </span>
   </span>

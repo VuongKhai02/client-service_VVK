@@ -33,7 +33,6 @@ export class MenuLinkComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("Menulink", this.countt)
   }
 
 }
