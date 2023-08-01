@@ -57,7 +57,7 @@
     </header>
     <mat-toolbar style="background-color: #E5E5E5;
     color: #000;" color="accent" fxFlex="0%" class="tb-side-menu-toolbar" fxLayout="column" role="navigation">
-      <tb-side-menu [MyCount]="this.sideNavOpen_k"></tb-side-menu>
+      <tb-side-menu (menuToggleClicked)="openNav()" [isSideNavOpen_k]="this.sideNavOpen_k"></tb-side-menu>
 
     </mat-toolbar>
   </mat-sidenav>

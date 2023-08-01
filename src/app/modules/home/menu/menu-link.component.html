@@ -15,15 +15,15 @@
     limitations under the License.
 
 -->
-<a *ngIf="countt == undefined || countt" class="item_custom_k" mat-button routerLinkActive="tb-active"
+<a *ngIf="sideNavOpen_kk == undefined || sideNavOpen_kk" class="item_custom_k" mat-button routerLinkActive="tb-active"
   [routerLinkActiveOptions]="{exact: !section.notExact}" routerLink="{{section.path}}">
   <mat-icon *ngIf="!section.isMdiIcon && section.icon != null" class="material-icons">{{section.icon}}</mat-icon>
   <mat-icon *ngIf="section.isMdiIcon && section.icon != null" [svgIcon]="section.icon"></mat-icon>
   <span>{{section.name | translate}}</span>
 
 </a>
-<a *ngIf=" countt==false" class="item_custom_k" mat-button routerLinkActive="tb-active" matTooltip="{{section.name}}"
-  [routerLinkActiveOptions]="{exact: !section.notExact}" routerLink="{{section.path}}">
+<a *ngIf=" sideNavOpen_kk==false" class="item_custom_k" mat-button routerLinkActive="tb-active"
+  matTooltip="{{section.name}}" [routerLinkActiveOptions]="{exact: !section.notExact}" routerLink="{{section.path}}">
   <span>{{ " " | translate}}</span>
   <mat-icon *ngIf="!section.isMdiIcon && section.icon != null"
     class="material-icons icon_custom_k">{{section.icon}}</mat-icon>

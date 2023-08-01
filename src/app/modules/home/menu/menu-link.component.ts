@@ -24,14 +24,13 @@ import { MenuSection } from '@core/services/menu.models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MenuLinkComponent implements OnInit {
-  @Input('MyCountt') countt: boolean;
+  @Input('sideNavOpen_k') sideNavOpen_kk: boolean;
 
 
   @Input() section: MenuSection;
 
   constructor() {
   }
-
   ngOnInit() {
   }
 

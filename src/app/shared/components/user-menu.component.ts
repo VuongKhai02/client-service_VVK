@@ -95,6 +95,7 @@ matBadgeCount:number = 15;
   
 
   ngOnInit(): void {
+    console.log("user bên menu",this.user)
   }
 
   ngOnDestroy(): void {

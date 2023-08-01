@@ -14,7 +14,7 @@
 /// limitations under the License.
 ///
 
-import { ChangeDetectionStrategy, Component, OnInit,Input  } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit,Input, Output, EventEmitter  } from '@angular/core';
 import { MenuService } from '@core/services/menu.service';
 import { MenuSection } from '@core/services/menu.models';
 
@@ -27,7 +27,7 @@ import { MenuSection } from '@core/services/menu.models';
 export class SideMenuComponent implements OnInit {
 
   menuSections$ = this.menuService.menuSections();
-  @Input('MyCount') count: boolean;
+  @Input('isSideNavOpen_k') sideNavOpen_k: boolean;
 
 
   constructor(private menuService: MenuService) {
@@ -35,6 +35,15 @@ export class SideMenuComponent implements OnInit {
 
   trackByMenuSection(index: number, section: MenuSection){
     return section.id;
+  }
+
+  @Output() menuToggleClicked: EventEmitter<void> = new EventEmitter<void>();
+
+  // Hàm xử lý khi người dùng nhấp vào tb-menu-toggle
+  clickToggle() {
+    // Phát sự kiện thông qua EventEmitter
+    this.menuToggleClicked.emit();
+    console.log("Click toggle in sidemenu");
   }
 
   ngOnInit() {

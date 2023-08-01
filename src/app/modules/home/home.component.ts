@@ -116,12 +116,19 @@ export class HomeComponent extends PageComponent implements AfterViewInit, OnIni
   }
 
   // khai2607
-  toggleClick() {
+  toggleClick() { 
     this.sidenav.toggle();
     if(this.sidenav.opened == false){
       this.sideNavOpen_k = false;
     }
     else{
+      this.sideNavOpen_k = true;
+    }
+  }
+  openNav() {
+    
+    if(this.sidenav.opened == false){
+      this.sidenav.toggle();
       this.sideNavOpen_k = true;
     }
   }
