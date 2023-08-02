@@ -6046,8 +6046,7 @@ textarea.cdk-textarea-autosize-measuring-firefox {
 }
 
 .tb-default .mat-toolbar.mat-accent {
-  background: #2a3884;
-  /* background: #607d8b; */
+  background: #607d8b;
   color: #fff
 }
 

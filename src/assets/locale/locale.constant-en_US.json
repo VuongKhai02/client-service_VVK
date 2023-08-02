@@ -1,4 +1,9 @@
 {
+    "custom_k": {
+        "log-out": "Log out",
+        "notifications": "Notifications",
+        "full-screen": "Full screen"
+    },
     "access": {
         "unauthorized": "Không có quyền",
         "unauthorized-access": "Không có quyền truy cập",
