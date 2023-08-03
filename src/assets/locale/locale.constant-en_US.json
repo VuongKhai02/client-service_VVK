@@ -2,7 +2,8 @@
     "custom_k": {
         "log-out": "Log out",
         "notifications": "Notifications",
-        "full-screen": "Full screen"
+        "full-screen": "Full screen",
+        "lang-img": "assets/img_lang_en.png"
     },
     "access": {
         "unauthorized": "Không có quyền",

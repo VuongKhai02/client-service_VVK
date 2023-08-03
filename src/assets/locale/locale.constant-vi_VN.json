@@ -2,7 +2,8 @@
     "custom_k": {
         "log-out": "Đăng xuất",
         "notifications": "Thông báo",
-        "full-screen": "Toàn màn hình"
+        "full-screen": "Toàn màn hình",
+        "lang-img": "assets/img_lang_vi.png"
     },
     "access": {
         "unauthorized": "Không có quyền",

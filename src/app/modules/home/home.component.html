@@ -21,8 +21,7 @@
     <header *ngIf="this.sideNavOpen_k ==true" class="tb-nav-header">
       <mat-toolbar color="accent" class="tb-nav-header-toolbar" style="background: #2A3884;">
         <!-- khai -->
-        <div fxFlex="auto" fxLayout="row" style="margin-left: 32px;
-        align-items: center;">
+        <div fxFlex="auto" fxLayout="row" class="header_img">
           <svg width="194" height="54" viewBox="0 0 194 54" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M46 40.05V14.85L24.4 29.25V52.146L46 40.05Z" fill="white" />
             <path
@@ -55,16 +54,15 @@
         </div>
       </mat-toolbar>
     </header>
-    <mat-toolbar style="background-color: #E5E5E5;
-    color: #000;" color="accent" fxFlex="0%" class="tb-side-menu-toolbar" fxLayout="column" role="navigation">
+    <mat-toolbar color="accent" fxFlex="0%" class="tb-side-menu-toolbar" fxLayout="column" role="navigation">
       <tb-side-menu (menuToggleClicked)="openNav()" [isSideNavOpen_k]="this.sideNavOpen_k"></tb-side-menu>
 
     </mat-toolbar>
   </mat-sidenav>
   <mat-sidenav-content>
     <div fxLayout="column" role="main" style="height: 100%;">
-      <mat-toolbar fxLayout="row" color="accent" class="mat-elevation-z1 tb-accent-toolbar d-flex justify_between"
-        style="height: 74px;background: #2A3884;">
+      <mat-toolbar fxLayout="row" color="accent"
+        class="mat-elevation-z1 tb-accent-toolbar mat_custom_k d-flex justify_between">
         <div class="d_flex align_center justify_between ">
           <button [fxShow]="!forceFullscreen" mat-icon-button id="main" class="tb-visible" fxHide.gt-sm
             (click)="toggleClick()">
@@ -95,17 +93,14 @@
           <button [fxShow]="searchEnabled" mat-icon-button (click)="openSearch()">
             <mat-icon class="material-icons">search</mat-icon>
           </button>
-
         </div>
-
         <!--  -->
         <div class="d_flex align_center justify_between ">
-
           <button matTooltip="{{'custom_k.full-screen' | translate}}" *ngIf="fullscreenEnabled"
             [fxShow]="!displaySearchMode()" mat-icon-button fxHide.lt-md (click)="toggleFullscreen()">
             <mat-icon class="material-icons">{{ isFullscreen() ? 'fullscreen_exit' : 'fullscreen' }}</mat-icon>
           </button>
-          <tb-user-menu [displayUserInfo]="!displaySearchMode()"></tb-user-menu>
+          <tb-user-menu [defaultLang_Home]="this.defaultLang" [displayUserInfo]="!displaySearchMode()"></tb-user-menu>
 
         </div>
         <!--  -->

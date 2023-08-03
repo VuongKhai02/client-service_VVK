@@ -20,7 +20,7 @@ import { select, Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { User } from '@shared/models/user.model';
+import { User,AuthUser } from '@shared/models/user.model';
 import { PageComponent } from '@shared/components/page.component';
 import { AppState } from '@core/core.state';
 import { getCurrentAuthState, selectAuthUser, selectUserDetails } from '@core/auth/auth.selectors';
@@ -30,6 +30,10 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { AuthState } from '@core/auth/auth.models';
 import { WINDOW } from '@core/services/window.service';
 import { instanceOfSearchableComponent, ISearchableComponent } from '@home/models/searchable-component.models';
+import { UserService } from '@app/core/http/user.service';
+
+import { getCurrentAuthUser } from '@core/auth/auth.selectors';
+
 
 const screenfull = _screenfull as _screenfull.Screenfull;
 
@@ -39,7 +43,9 @@ const screenfull = _screenfull as _screenfull.Screenfull;
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent extends PageComponent implements AfterViewInit, OnInit {
-
+  userr: User;
+  defaultLang:string;
+  private readonly authUserr: AuthUser;
   authState: AuthState = getCurrentAuthState(this.store);
 
   forceFullscreen = this.authState.forceFullscreen;
@@ -72,12 +78,20 @@ export class HomeComponent extends PageComponent implements AfterViewInit, OnIni
 
   constructor(protected store: Store<AppState>,
               @Inject(WINDOW) private window: Window,
-              public breakpointObserver: BreakpointObserver) {
+              public breakpointObserver: BreakpointObserver,private userService: UserService,) {
     super(store);
+    
+    this.authUserr = getCurrentAuthUser(this.store);
+    console.log("auth bên home",this.authUserr)
   }
 
 
   ngOnInit() {
+    this.userService.getUser(this.authUserr.userId).subscribe((data) => {
+      this.userr = data;
+      this.defaultLang = this.userr.additionalInfo.lang;
+      console.log("this.userr", this.userr.additionalInfo.lang)
+    })
     this.authUser$ = this.store.pipe(select(selectAuthUser));
     this.userDetails$ = this.store.pipe(select(selectUserDetails));
     this.userDetailsString = this.userDetails$.pipe(map((user: User) => {

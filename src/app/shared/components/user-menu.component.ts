@@ -61,8 +61,13 @@ languageList = env.supportedLangs;
 matBadgeCount:number = 15;
   user: User;
   // khai
-  defaultLang:string;
+  // defaultLang:string;
   @Input() displayUserInfo: boolean;
+  
+  
+  @Input('defaultLang_Home') defaultLang: string;
+
+
 
   authorities = Authority;
 
@@ -139,7 +144,7 @@ matBadgeCount:number = 15;
        console.log("adđitional pro", this.user.lastName );
        console.log("default lang", this.defaultLang)
 
-       this.defaultLang = this.user.additionalInfo.lang;
+      //  this.defaultLang = this.user.additionalInfo.lang;
        console.log("default lang", this.defaultLang)
       });
 

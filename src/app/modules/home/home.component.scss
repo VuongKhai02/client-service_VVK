@@ -125,9 +125,13 @@
         white-space: nowrap;
         border-bottom: 1px solid rgba(0, 0, 0, .12);
 
-        &>div {
-          // Khai code height:64px;
+        .header_img {
           height: 73px;
+          margin-left: 32px;
+          align-items: center;
+        }
+
+        &>div {
 
           .tb-logo-title {
             width: auto;
@@ -141,9 +145,20 @@
     }
 
     .tb-side-menu-toolbar {
+      // 
+      background-color: #E5E5E5;
+      color: #000;
+      // 
       overflow-y: auto;
       height: inherit;
       padding: 0;
+    }
+  }
+
+  mat-sidenav-content {
+    .mat_custom_k {
+      height: 74px;
+      background: #2A3884;
     }
   }
 
