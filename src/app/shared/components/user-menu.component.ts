@@ -15,7 +15,7 @@
 ///
 
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { User } from '@shared/models/user.model';
+import { AuthUser, User } from '@shared/models/user.model';
 import { Authority } from '@shared/models/authority.enum';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '@core/core.state';
@@ -25,9 +25,14 @@ import { AuthService } from '@core/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActionSettingsChangeLanguage } from '@app/core/settings/settings.actions';
 import { environment as env } from '@env/environment';
+import { getCurrentAuthUser } from '@core/auth/auth.selectors';
+import { ActionAuthUpdateUserDetails } from '@core/auth/auth.actions';
+
+
 
 
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { UserService } from '@app/core/http/user.service';
 
 // khai
 interface Language {
@@ -44,15 +49,19 @@ interface Language {
 export class UserMenuComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState>,
     private router: Router,
-    private authService: AuthService,private route: ActivatedRoute,
+    private authService: AuthService,private route: ActivatedRoute,private userService: UserService,
     public dialog: MatDialog) {
+      
+      this.authUser = getCurrentAuthUser(this.store);
+      console.log("auth bên user",this.authUser)
 }
 
+private readonly authUser: AuthUser;
 languageList = env.supportedLangs;
 matBadgeCount:number = 15;
   user: User;
   // khai
-  defaultLang = 'en_US';
+  defaultLang:string;
   @Input() displayUserInfo: boolean;
 
   authorities = Authority;
@@ -73,7 +82,24 @@ matBadgeCount:number = 15;
 
   
   selectLangEvent(event :any){
-    this.store.dispatch(new ActionSettingsChangeLanguage({ userLang: event.value }));
+    this.user = {...this.user};
+    this.user.additionalInfo.lang = event.value;
+       this.userService.saveUser(this.user).subscribe(
+         (user) => {
+           this.store.dispatch(new ActionAuthUpdateUserDetails({ userDetails: {
+               additionalInfo: {...user.additionalInfo},
+               authority: user.authority,
+               createdTime: user.createdTime,
+               tenantId: user.tenantId,
+               customerId: user.customerId,
+               email: user.email,
+               firstName: user.firstName,
+               id: user.id,
+               lastName: user.lastName,
+             } }));
+           this.store.dispatch(new ActionSettingsChangeLanguage({ userLang: user.additionalInfo.lang }));
+         }
+       );
   }
 
 
@@ -96,6 +122,28 @@ matBadgeCount:number = 15;
 
   ngOnInit(): void {
     console.log("user bên menu",this.user)
+    console.log("route in user", this.route);
+    console.log("id", this.authUser.customerId);
+    console.log("info",this.userService.getUser(this.authUser.userId));
+    this.userService.getUser(this.authUser.userId).subscribe((data) => {
+      this.user = data;
+      
+      console.log("adđitional pro", this.user.additionalInfo );
+       console.log("adđitional pro", this.user.authority );
+       console.log("adđitional pro", this.user.createdTime );
+       console.log("adđitional pro", this.user.tenantId );
+       console.log("adđitional pro", this.user.customerId );
+       console.log("adđitional pro", this.user.email );
+       console.log("adđitional pro", this.user.firstName );
+       console.log("adđitional pro", this.user.id );
+       console.log("adđitional pro", this.user.lastName );
+       console.log("default lang", this.defaultLang)
+
+       this.defaultLang = this.user.additionalInfo.lang;
+       console.log("default lang", this.defaultLang)
+      });
+
+
   }
 
   ngOnDestroy(): void {

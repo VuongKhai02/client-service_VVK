@@ -58,6 +58,8 @@ export class ProfileComponent extends PageComponent implements OnInit, HasConfir
               public fb: FormBuilder) {
     super(store);
     this.authUser = getCurrentAuthUser(this.store);
+    console.log("auth bên pro",this.authUser)
+
   }
 
   ngOnInit() {
@@ -89,6 +91,17 @@ export class ProfileComponent extends PageComponent implements OnInit, HasConfir
     this.userService.saveUser(this.user).subscribe(
       (user) => {
         this.userLoaded(user);
+        console.log("adđitional pro", this.user.additionalInfo );
+        console.log("adđitional pro", this.user.authority );
+        console.log("adđitional pro", this.user.createdTime );
+        console.log("adđitional pro", this.user.tenantId );
+        console.log("adđitional pro", this.user.customerId );
+        console.log("adđitional pro", this.user.email );
+        console.log("adđitional pro", this.user.firstName );
+        console.log("adđitional pro", this.user.id );
+        console.log("adđitional pro", this.user.lastName );
+
+
         this.store.dispatch(new ActionAuthUpdateUserDetails({ userDetails: {
             additionalInfo: {...user.additionalInfo},
             authority: user.authority,
