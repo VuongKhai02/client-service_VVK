@@ -26,11 +26,7 @@
     list-style: none;
   }
 
-  .tb-side-menu>li:active {
-    // khai 
-    // border-bottom: 1px solid rgba(0, 0, 0, .12);
-    // border-radius: 10px 0px 0px 10px;
-  }
+  .tb-side-menu>li:active {}
 
   a.mat-button {
     display: flex;

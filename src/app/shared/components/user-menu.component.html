@@ -27,15 +27,6 @@
         }}</span>
     </div>
   </div>
-  <!-- khai code -->
-  <!-- <mat-form-field style="width: 7rem;
-  margin: 0 3rem;">
-    <mat-select [(ngModel)]="defaultFoodValue" (selectionChange)="selectLangEvent($event)">
-      <mat-option style="font-size:12px" *ngFor="let language of languages" [value]="language.value">
-        {{language.label}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field> -->
   <mat-form-field class="mat-block">
     <div class="d_flex">
       <img class="img_lang" src="{{'custom_k.lang-img' | translate}}">
@@ -63,7 +54,7 @@
 
     </button>
     <mat-menu #menu="matMenu" style="background-color:
-    #838383">
+    rgb(131,131,131)">
       <div class="matMenu_custom_k">
         <div class="d_flex justify_between">
           <h3 class="txt_white">Thông báo</h3>
@@ -132,14 +123,14 @@
 
         <h6>Bạn có chắc chắn muốn đăng xuất?</h6>
         <button (click)="cancel()" class="exit_btn_custom_k">
-          <svg width="8" height="8" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="14" height="12" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M11.7803 10.5208L19.6245 2.6483C20.1252 2.14934 20.1252 1.37318 19.6245 0.87422C19.1238 0.37526 18.3449 0.37526 17.8442 0.87422L10 8.74671L2.10014 0.92966C1.65508 0.4307 0.820584 0.4307 0.375522 0.92966C-0.125174 1.42862 -0.125174 2.20478 0.375522 2.70374L8.21975 10.5208L0.375522 18.3378C-0.125174 18.8368 -0.125174 19.613 0.375522 20.1119C0.598053 20.3337 0.93185 20.5 1.26565 20.5C1.59944 20.5 1.93324 20.3891 2.15577 20.1119L10 12.2949L17.8442 20.1119C18.0668 20.3337 18.4006 20.5 18.7344 20.5C19.0681 20.5 19.4019 20.3891 19.6245 20.1119C20.1252 19.613 20.1252 18.8368 19.6245 18.3378L11.7803 10.5208Z"
-              fill="#8C8C8C" />
+              fill="#000" />
           </svg>
         </button>
       </div>
-      <div style="display: flex; flex-direction: row-reverse;">
+      <div class="btn_dialog_k">
         <button mat-raised-button color="primary" (click)="cancel()">Hủy</button>
         <button mat-raised-button color="warn" (click)="logout()">Đăng xuất</button>
       </div>

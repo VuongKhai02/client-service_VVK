@@ -137,11 +137,17 @@
 
 .dialog_custome_k {
   position: relative;
+
+  .exit_btn_custom_k {
+    position: absolute;
+    right: -22px;
+    top: -23px;
+    border: none;
+  }
 }
 
-.exit_btn_custom_k {
-  position: absolute;
-  right: -22px;
-  top: -23px;
-  border: none;
+.btn_dialog_k {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
 }

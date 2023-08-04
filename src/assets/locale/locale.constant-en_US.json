@@ -16,6 +16,26 @@
         "permission-denied": "Permission Denied",
         "permission-denied-text": "You don't have permission to perform this operation!"
     },
+    "Quản lý người dùng": "Manage users",
+    "Quản lý thiết bị IOT": "Manage IOT devices",
+    "Quản lý công đoạn": "Manage state",
+    "Giám sát": "Supervisor",
+    "Quản lý nhóm lỗi": "Manage error group",
+    "Cấu hình": "Config",
+    "Quản lý lỗi": "Manage errors",
+    "Khai báo lỗi": "Declare errors ",
+    "Khai báo lỗi cho lệnh sản xuất": "Declare work order errors",
+    "Khai báo lỗi HMI": "Declare HMI errors",
+    "Quản lý Sản phẩm": "Manage products",
+    "Quản lý Nhóm Sản phẩm": "Manage product group",
+    "Khai báo serial_sản lượng": "Declare serial_output",
+    "Quản lý dây chuyền": "Manage lines",
+    "Đối tượng": "Objects",
+    "Thiết bị": "Devices",
+    "Hồ sơ thiết bị": "Device profiles",
+    "OTP updates": "OTP updates",
+    "Entity Views": "Entity Views",
+    "Rule chains": "Rule chains",
     "action": {
         "activate": "Kích hoạt",
         "suspend": "Tạm đình chỉ",
@@ -371,8 +391,8 @@
         "any-relation": "any"
     },
     "asset": {
-        "asset": "Đối tượng",
-        "assets": "Đối tượng",
+        "asset": "Assets",
+        "assets": "Assets",
         "management": "Quản lý đối tượng",
         "view-assets": "Hiển thị chi tiết đối tượng",
         "add": "Thêm đối tượng",
@@ -892,9 +912,9 @@
         "toggle-edit-mode": "Toggle edit mode"
     },
     "device": {
-        "device": "Thiết bị",
+        "device": "Devices",
         "device-required": "Device is required.",
-        "devices": "Thiết bị",
+        "devices": "Devices",
         "management": "Device management",
         "view-devices": "View Devices",
         "device-alias": "Device alias",
@@ -1047,8 +1067,8 @@
         "unassign-devices-from-edge-text": "After the confirmation all selected devices will be unassigned and won't be accessible by the edge."
     },
     "device-profile": {
-        "device-profile": "Hồ sơ thiết bị",
-        "device-profiles": "Hồ sơ thiết bị",
+        "device-profile": "Device profiles",
+        "device-profiles": "Devices profiles",
         "all-device-profiles": "All",
         "add": "Add device profile",
         "edit": "Edit device profile",

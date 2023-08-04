@@ -19,6 +19,15 @@
   [routerLinkActiveOptions]="{exact: !section.notExact}" routerLink="{{section.path}}">
   <mat-icon *ngIf="!section.isMdiIcon && section.icon != null" class="material-icons">{{section.icon}}</mat-icon>
   <mat-icon *ngIf="section.isMdiIcon && section.icon != null" [svgIcon]="section.icon"></mat-icon>
+  <!-- <ng-container *ngIf="section.name == 'Quản lý công đoạn'; else notTrue">
+    <span>{{'custom_k.full-screen' | translate}}</span>
+  </ng-container>
+  <ng-container>
+    <ng-template #notTrue>
+      <span>{{section.name | translate}}</span>
+
+    </ng-template>
+  </ng-container> -->
   <span>{{section.name | translate}}</span>
 
 </a>

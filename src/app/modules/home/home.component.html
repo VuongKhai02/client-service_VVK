@@ -19,7 +19,7 @@
   <mat-sidenav #sidenav class="tb-site-sidenav mat-elevation-z2" [disableClose]="sidenavOpened"
     (click)="sidenavClicked()" [mode]="sidenavMode" [opened]="sidenavOpened && !forceFullscreen">
     <header *ngIf="this.sideNavOpen_k ==true" class="tb-nav-header">
-      <mat-toolbar color="accent" class="tb-nav-header-toolbar" style="background: #2A3884;">
+      <mat-toolbar color="accent" class="tb-nav-header-toolbar">
         <!-- khai -->
         <div fxFlex="auto" fxLayout="row" class="header_img">
           <svg width="194" height="54" viewBox="0 0 194 54" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,10 +36,9 @@
       </mat-toolbar>
     </header>
     <header *ngIf="this.sideNavOpen_k ==false" class="tb-nav-header tb_nav_cusom_k">
-      <mat-toolbar color="accent" class="tb-nav-header-toolbar" style="background: #2A3884;">
+      <mat-toolbar color="accent" class="tb-nav-header-toolbar">
         <!-- khai -->
-        <div fxFlex="auto" fxLayout="row" style="margin-left: 32px;
-        align-items: center;">
+        <div fxFlex="auto" fxLayout="row" class="header_img">
           <!-- <img [src]="logo"
                aria-label="logo" class="tb-logo-title"/> -->
           <!-- <div class="tb-logo-title">Rạng Đông SCADA</div> -->
