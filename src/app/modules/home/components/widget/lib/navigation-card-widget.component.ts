@@ -37,7 +37,7 @@ export class NavigationCardWidgetComponent extends PageComponent implements OnIn
 
   settings: NavigationCardWidgetSettings;
 
-  translatedName: string;
+  translatedName:  string;
 
   @Input()
   ctx: WidgetContext;
