@@ -142,6 +142,10 @@
 .dialog_custome_k {
   position: relative;
 
+  .heading_dialog{
+    text-align: center;font-size: 1.1rem;
+  }
+
   .exit_btn_custom_k {
     position: absolute;
     right: -10px;
@@ -156,8 +160,15 @@
 }
 
 .btn_dialog_k {
+  
   display: flex;
   padding: 1rem 0rem 0.3rem 0;
   flex-direction: row-reverse;
   justify-content: center;
+  .btn_logout{
+    background: #FF7A00; margin-right:1rem
+  }
+  .btn_cancel{
+    background: #E5E5E5;color:#000
+  }
 }

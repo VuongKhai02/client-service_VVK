@@ -15,7 +15,8 @@
     limitations under the License.
 
 -->
-<a mat-raised-button color="accent" class="tb-nav-button" href="{{settings.path}}" (click)="navigate($event, settings.path)">
+<a mat-raised-button color="accent" class="tb-nav-button" href="{{settings.path}}"
+  (click)="navigate($event, settings.path)">
   <mat-icon class="material-icons tb-mat-96">{{settings.icon}}</mat-icon>
-  <span>{{translatedName}}</span>
+  <span>{{translatedName | translate}}</span>
 </a>

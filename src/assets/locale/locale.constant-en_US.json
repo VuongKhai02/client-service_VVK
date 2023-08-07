@@ -3,7 +3,10 @@
         "log-out": "Log out",
         "notifications": "Notifications",
         "full-screen": "Full screen",
-        "lang-img": "assets/img_lang_en.png"
+        "lang-img": "assets/img_lang_en.png",
+        "log_out_sure": "Are you sure you want to log out",
+        "accept": "Accept",
+        "cancel": "Cancel"
     },
     "access": {
         "unauthorized": "Unauthorized",

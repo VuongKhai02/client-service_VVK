@@ -3,7 +3,10 @@
         "log-out": "Đăng xuất",
         "notifications": "Thông báo",
         "full-screen": "Toàn màn hình",
-        "lang-img": "assets/img_lang_vi.png"
+        "lang-img": "assets/img_lang_vi.png",
+        "log_out_sure": "Bạn có chắc chắn muốn đăng xuất",
+        "accept": "Đăng xuất",
+        "cancel": "Hủy"
     },
     "access": {
         "unauthorized": "Không có quyền",
