@@ -274,7 +274,7 @@ export class SanluongEntitiesTableComponent extends PageComponent implements OnI
         tap(() => { this.updateData(); console.log("PHD datasource update 2: ", this.entityDatasource); })
       )
       .subscribe();
-    this.updateData();
+    
     // -------------------- Code Start -----------------
     var localCheckFilter = JSON.parse(sessionStorage.getItem("checkFillterSanLuong"));
     console.log("----------localCheckFilter------------", localCheckFilter);
@@ -284,6 +284,7 @@ export class SanluongEntitiesTableComponent extends PageComponent implements OnI
     this.paginator.pageIndex = giamsatPageIndex;
     var giamsatPageSize = JSON.parse(sessionStorage.getItem("sanluongPageSize"));
     this.paginator.pageSize = giamsatPageSize;
+    this.updateData();
     if (localCheckFilter == true) {
       this.checkFillter = true;
       this.fillterArr = localFillterArr;

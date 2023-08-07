@@ -734,7 +734,7 @@ export class GiamsatEntitiesTableWidgetComponent extends PageComponent implement
         tap(() => { this.updateData(); console.log("PHD datasource update 2: ", this.entityDatasource); })
       )
       .subscribe();
-    this.updateData();
+    
     // -------------------- Code Start -----------------
     var localCheckFilter = JSON.parse(sessionStorage.getItem("checkFillter"));
     console.log("----------localCheckFilter------------", localCheckFilter);
@@ -744,6 +744,7 @@ export class GiamsatEntitiesTableWidgetComponent extends PageComponent implement
     this.paginator.pageIndex = giamsatPageIndex;
     var giamsatPageSize = JSON.parse(sessionStorage.getItem("giamsatPageSize"));
     this.paginator.pageSize = giamsatPageSize;
+    this.updateData();
     if (localCheckFilter == true) {
       this.checkFillter = true;
       this.fillterArr = localFillterArr;

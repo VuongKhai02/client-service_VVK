@@ -135,19 +135,29 @@
   background-color: #838383 !important;
 }
 
+::ng-deep .mat-dialog-container {
+  padding: 14px !important;
+}
+
 .dialog_custome_k {
   position: relative;
 
   .exit_btn_custom_k {
     position: absolute;
-    right: -22px;
-    top: -23px;
+    right: -10px;
+    background: transparent;
+    top: -1px;
     border: none;
+
+    &:hover{
+      opacity: 0.8;
+    }
   }
 }
 
 .btn_dialog_k {
   display: flex;
+  padding: 1rem 0rem 0.3rem 0;
   flex-direction: row-reverse;
   justify-content: center;
 }

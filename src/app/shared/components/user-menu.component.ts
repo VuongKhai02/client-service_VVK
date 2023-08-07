@@ -74,7 +74,7 @@ matBadgeCount:number = 15;
   
   openDialog(templateRef) {
     let dialogRef = this.dialog.open(templateRef, {
-     width: '330px',
+     width: '30vw',
      data: { message: 'Bạn có chắc chắn muốn đăng xuất?' },
    });
   }
